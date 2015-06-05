@@ -73,6 +73,7 @@ private:
 
 	//Ãß°¡
 	Quaternion quat;
+
 	Vector3 dest;
 	Vector3 mDestination;
 	Vector3 mDirection;
@@ -113,7 +114,7 @@ private:
 	Player* mPlayer;
 	Demon* mDemon;
 	PlayerDirection mPlayerDirection;
-
+	
 };
 
 

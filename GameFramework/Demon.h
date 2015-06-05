@@ -28,7 +28,9 @@ private:
 	char mName[15];
 	int mDemonNumber;
 
+	Quaternion prevQuat;
 	Quaternion quat;
+
 	Vector3 dest;
 	Vector3 mDestination;
 	Vector3 mDirection;
@@ -36,6 +38,11 @@ private:
 	Real move;
 	float demonVelocity;
 	float sinAngle;
+	float moveAngle;
+	
+	float time;
+	Vector3 mAxis;
+	int randomNumber;
 };
 
 
