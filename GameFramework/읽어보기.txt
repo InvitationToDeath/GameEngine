@@ -1,0 +1,15 @@
+** keypressed에서
+setposition 아래 코드 추가했을 때 부터 종료할 때 에러발생
+
+(
+mPlayerNode->setPosition(mPlayerX, mPlayerY, mPlayerZ);
+mPlayerBodyNode->setPosition(mPlayerX, mPlayerY, mPlayerZ);
+)
+
+**총알 발사가 안됨 (프레임 스타트 부분 코드 문제)
+
+**그 터렛 헤드부분이 눕는 문제는
+pitch 랑 yaw를 씬노드 한개에서 동시에 해서 그런듯.
+pitch용이랑 yaw 용 나눠야함 (기존 카메라 회전 실습 보고 고쳐야할듯)
+
+**카메라 위치 조정은 지금 내가 졸려서 못하고 껐음
