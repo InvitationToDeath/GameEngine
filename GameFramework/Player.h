@@ -2,6 +2,7 @@
 
 #include "GameManager.h"
 #include "GameState.h"
+#include "Bullet.h"
 
 using namespace Ogre;
 
@@ -40,4 +41,6 @@ private:
 	Ogre::SceneManager* mSceneMgr;
 	Ogre::Camera* mCamera;
 	Ogre::Root* mRoot;
+
+	Bullet* bullet;
 };

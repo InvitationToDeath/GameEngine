@@ -21,6 +21,7 @@ Demon::Demon()
 	mAxis=(1,0,0);
 	time=0;
 	randomNumber=rand()%4;
+	
 }
 
 void Demon::update(Ogre::Real timeSinceLastFrame)
@@ -36,7 +37,8 @@ void Demon::update(Ogre::Real timeSinceLastFrame)
 		time=0;
 		randomNumber=rand()%2;
 	}
-	std::cout<<mAxis.x<<std::endl;
+	
+	
 	move = demonVelocity * timeSinceLastFrame;
 
 	if(mDistance>=60){
@@ -44,7 +46,7 @@ void Demon::update(Ogre::Real timeSinceLastFrame)
 		mDemonNode->translate( mAxis * move *  sin((sinAngle *(PI / 180))));
 
 		if(moveAngle>0)
-			moveAngle-=5;
+			moveAngle-=1;
 		else
 			moveAngle=90;
 

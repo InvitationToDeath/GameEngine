@@ -25,6 +25,7 @@ Player::Player()
 	//mPlayerHeadSceneNode->setScale(0.2,0.2,0.2);
 	mPlayerHeadSceneNode->yaw(Degree(-90.0f));
 
+	bullet= new Bullet();
 
 }
 

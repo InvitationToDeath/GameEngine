@@ -108,6 +108,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Demon.cpp" />
     <ClCompile Include="EntitiyManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="TitleState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Demon.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="GameManager.h" />
