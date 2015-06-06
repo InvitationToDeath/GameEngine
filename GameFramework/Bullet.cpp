@@ -10,7 +10,7 @@ Bullet::Bullet()
 	mSceneMgr = mRoot->getSceneManager("main");
 
 	sprintf(mName, "Bullet%d", mBulletNumber);
-	mBulletEntity = mSceneMgr->createEntity(mName, "bullet.mesh");
+	mBulletEntity = mSceneMgr->createEntity(mName, "IronBall.mesh");
 	mBulletSceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(mName, Vector3(Vector3::ZERO));
 	mBulletSceneNode->attachObject(mBulletEntity);
 	mBulletSceneNode->setScale(1,1,1);

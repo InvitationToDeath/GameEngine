@@ -84,7 +84,7 @@ private:
 	float mCameraPositionX, mCameraPositionY, mCameraPositionZ;
 	float mCameraVelocity;
 	AnimationState* mShootState;
-	float mPlayerX, mPlayerY, mPlayerZ;
+	//float mPlayerX, mPlayerY, mPlayerZ;
 
 	//0605
 	float mPlayerVelocityX, mPlayerVelocityY, mPlayerVelocityZ;

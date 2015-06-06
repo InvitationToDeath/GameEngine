@@ -72,7 +72,7 @@ void PlayState::enter(void)
 	//총알 생성
 	for (int i = 0; i<50; ++i){
 		sprintf(bName, "Bullet%d", i);
-		bEntity[i] = mSceneMgr->createEntity(bName, "bullet.mesh");
+		bEntity[i] = mSceneMgr->createEntity(bName, "IronBall.mesh");
 		Bullet[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(bName, Vector3(Vector3::ZERO));
 		Bullet[i]->attachObject(bEntity[i]);
 		/*	Demon[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(bName,Vector3(Vector3::ZERO));
@@ -93,10 +93,10 @@ void PlayState::enter(void)
 	speed = 500;
 
 	// 카메라 시작 위치 조정
-	mCameraPositionX = 0.f;
-	mCameraPositionY = 200.f;
-	mCameraPositionZ = 0.f;
-	mCamera->setPosition(mCameraPositionX, mCameraPositionY, mCameraPositionZ);
+	//mCameraPositionX = 0.f;
+	//mCameraPositionY = 200.f;
+	//mCameraPositionZ = 0.f;
+	//mCamera->setPosition(mCameraPositionX, mCameraPositionY, mCameraPositionZ);
 
 	/*
 	mPlayerX=0;
@@ -133,6 +133,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	//플레이어 이동 로직.
 	//mPlayer->getPlayerSceneNode()->translate(mPlayerX,mPlayerY,mPlayerZ);
 	mPlayer->getPlayerSceneNode()->translate(mPlayerVelocityX * evt.timeSinceLastFrame, mPlayerVelocityY * evt.timeSinceLastFrame, mPlayerVelocityZ * evt.timeSinceLastFrame);
+	mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y, mPlayer->getPlayerPosition().z-300);
 
 	//총알 발사
 	for (int i = 0; i < 50; i++)
@@ -182,24 +183,24 @@ bool PlayState::keyReleased(GameManager* game, const OIS::KeyEvent &e)
 	{
 
 	case OIS::KC_A:
-
-		mPlayerVelocityX = 0.0f;
+		//if(LEFT == mPlayerDirection && 0 != mPlayerVelocityX)
+			mPlayerVelocityX = 0.0f;
 		break;
 
 	case OIS::KC_D:
-
-		mPlayerVelocityX = 0.0f;
+		//if(RIGHT == mPlayerDirection && 0 != mPlayerVelocityX)
+			mPlayerVelocityX = 0.0f;
 		break;
 
 	case OIS::KC_W:
-
-		mPlayerVelocityZ = 0.0f;
+		//if(UP == mPlayerDirection && 0 != mPlayerVelocityZ)
+			mPlayerVelocityZ = 0.0f;
 
 		break;
 
 	case OIS::KC_S:
-
-		mPlayerVelocityZ = 0.0f;
+		//if(DOWN == mPlayerDirection && 0 != mPlayerVelocityZ)
+			mPlayerVelocityZ = 0.0f;
 
 		break;
 	}
@@ -220,33 +221,33 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 
 	case OIS::KC_A:
 
-		mCameraPositionX -= 3.0f;
+		//mCameraPositionX -= 3.0f;
 		mPlayerDirection = LEFT;
 		mPlayerVelocityX = -100.0f;
 		break;
 
 	case OIS::KC_D:
 
-		mPlayerX = mCameraPositionX += 3.0f;
+		//mPlayerX = mCameraPositionX += 3.0f;
 		mPlayerDirection = RIGHT;
 		mPlayerVelocityX = 100.0f;
 		break;
 
 	case OIS::KC_W:
 
-		mPlayerZ = mCameraPositionZ -= 3.0f;
+		//mPlayerZ = mCameraPositionZ -= 3.0f;
 		mPlayerDirection = UP;
 		mPlayerVelocityZ = -100.0f;
 		break;
 
 	case OIS::KC_S:
 
-		mPlayerZ = mCameraPositionZ += 3.0f;
+		//mPlayerZ = mCameraPositionZ += 3.0f;
 		mPlayerDirection = DOWN;
 		mPlayerVelocityZ = 100.0f;
 		break;
 	}
-	mCamera->setPosition(mCameraPositionX, mCameraPositionY, mCameraPositionZ);
+	//mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y, mPlayer->getPlayerPosition().z);
 	
 	return true;
 }
@@ -256,14 +257,14 @@ bool PlayState::mousePressed(GameManager* game, const OIS::MouseEvent &e, OIS::M
 	if (e.state.buttonDown(OIS::MB_Left)) {
 		mBulletDirection[bulletNumber] = mCamera->getPosition();
 		goBullet[bulletNumber] = true;
-		Bullet[bulletNumber]->setPosition(mPlayerX, mPlayerY + 100, mPlayerZ);
+		//0606 수정
+		Bullet[bulletNumber]->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y + 100, mPlayer->getPlayerPosition().z);
 		Bullet[bulletNumber]->setOrientation(mCamera->getOrientation());
 		mBulletDirection[bulletNumber].z = -mBulletDirection[bulletNumber].z;
 		bulletNumber++;
 
 		if (bulletNumber >= 50)
 			bulletNumber = 0;
-
 	}
 	return true;
 }
