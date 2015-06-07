@@ -4,6 +4,7 @@
 
 #include "GameState.h"
 #include "Demon.h"
+#include "Terrain.h"
 
 #include "windows.h"
 #include "math.h"
@@ -113,6 +114,7 @@ private:
 	//클래스용 추가
 	Player* mPlayer;
 	Demon* mDemon;
+	Terrain* mTerrain[10];
 	PlayerDirection mPlayerDirection;
 
 	//0607 카메라

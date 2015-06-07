@@ -2,29 +2,38 @@
 #include "TitleState.h"
 #include "Player.h"
 
+#include <vector>
+
 
 
 
 using namespace Ogre;
+using namespace std;
 
 PlayState PlayState::mPlayState;
 
 
 void PlayState::enter(void)
 {
-	//0607
-	mCameraWheelValue = 0;
-
-	mPlayer = new Player;
-	mDemon = new Demon;
-
-
 	mRoot = Root::getSingletonPtr();
 	mRoot->getAutoCreatedWindow()->resetStatistics();
 
 	mSceneMgr = mRoot->getSceneManager("main");
 	mCamera = mSceneMgr->getCamera("main");
 	mCamera->setPosition(Ogre::Vector3::ZERO);
+
+	//0607
+	mCameraWheelValue = 0;
+
+	mPlayer = new Player;
+	mDemon = new Demon;
+
+	//mTerrain = new Terrain;
+	//mTerrain = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0,100,0), "floor1", "floor.mesh");
+	//mTerrain->createTerrain(mSceneMgr->getRootSceneNode(), Vector3(0,100,0), "floor1", "floor.mesh");
+
+	
+
 
 	_drawGridPlane();
 	_setLights();
@@ -45,12 +54,20 @@ void PlayState::enter(void)
 	mCamera->lookAt(mCameraYaw->getPosition());
 
 
-	//플레이어, 지형
-	entity[3] = mSceneMgr->createEntity("crossrail", "crossrail.mesh");
+	//플레이어, 지형 (클래스 생성자로 모두 변경)
+	
+	mTerrain[0] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-230.0f, 730.0f, 0.0f), "crossrail", "crossrail.mesh");
+	//mTerrain[0]->getTerrainSceneNode()->setScale(0.5,0.5,0.5);
+	mTerrain[1] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(100, 0.0f, 0), "bullet", "bullet.mesh");
+	mTerrain[2] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "bricks", "bricks.mesh");
+	mTerrain[3] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "floor", "floor.mesh");
+	mTerrain[4] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Gate", "Gate.mesh");
+	mTerrain[5] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Towers", "Towers.mesh");
+	
+	/*entity[3] = mSceneMgr->createEntity("crossrail", "crossrail.mesh");
 	SceneNode* crossrail = mSceneMgr->getRootSceneNode()->createChildSceneNode("Crossrail", Vector3(-113.0f, 373.0f, 0.0f));
 	crossrail->attachObject(entity[3]);
 	crossrail->setScale(0.5, 0.5, 0.5);
-
 
 	entity[6] = mSceneMgr->createEntity("bullet", "bullet.mesh");
 	SceneNode* bullet = mSceneMgr->getRootSceneNode()->createChildSceneNode("bullet", Vector3(100, 0.0f, 0));
@@ -63,14 +80,16 @@ void PlayState::enter(void)
 	entity[8] = mSceneMgr->createEntity("floor", "floor.mesh");
 	SceneNode* floor = mSceneMgr->getRootSceneNode()->createChildSceneNode("floor", Vector3(0.f, -100.0f, 0.f));
 	floor->attachObject(entity[8]);
-
+	
 	entity[9] = mSceneMgr->createEntity("Gate", "Gate.mesh");
 	SceneNode* Gate = mSceneMgr->getRootSceneNode()->createChildSceneNode("Gate", Vector3(0.f, -100.0f, 0.f));
 	Gate->attachObject(entity[9]);
-
+	
 	entity[10] = mSceneMgr->createEntity("Towers", "Towers.mesh");
 	SceneNode* Towers = mSceneMgr->getRootSceneNode()->createChildSceneNode("Towers", Vector3(0.f, -100.0f, 0.f));
-	Towers->attachObject(entity[10]);
+	Towers->attachObject(entity[10]);*/
+
+	
 
 	//총알 생성
 	for (int i = 0; i<50; ++i){
@@ -226,28 +245,28 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 
 		//mCameraPositionX -= 3.0f;
 		mPlayerDirection = LEFT;
-		mPlayerVelocityX = -100.0f;
+		mPlayerVelocityX = -150.0f;
 		break;
 
 	case OIS::KC_D:
 
 		//mPlayerX = mCameraPositionX += 3.0f;
 		mPlayerDirection = RIGHT;
-		mPlayerVelocityX = 100.0f;
+		mPlayerVelocityX = 150.0f;
 		break;
 
 	case OIS::KC_W:
 
 		//mPlayerZ = mCameraPositionZ -= 3.0f;
 		mPlayerDirection = UP;
-		mPlayerVelocityZ = -100.0f;
+		mPlayerVelocityZ = -150.0f;
 		break;
 
 	case OIS::KC_S:
 
 		//mPlayerZ = mCameraPositionZ += 3.0f;
 		mPlayerDirection = DOWN;
-		mPlayerVelocityZ = 100.0f;
+		mPlayerVelocityZ = 150.0f;
 		break;
 	}
 	//mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y, mPlayer->getPlayerPosition().z);
