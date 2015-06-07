@@ -12,6 +12,9 @@ PlayState PlayState::mPlayState;
 
 void PlayState::enter(void)
 {
+	//0607
+	mCameraWheelValue = 0;
+
 	mPlayer = new Player;
 	mDemon = new Demon;
 
@@ -133,7 +136,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	//플레이어 이동 로직.
 	//mPlayer->getPlayerSceneNode()->translate(mPlayerX,mPlayerY,mPlayerZ);
 	mPlayer->getPlayerSceneNode()->translate(mPlayerVelocityX * evt.timeSinceLastFrame, mPlayerVelocityY * evt.timeSinceLastFrame, mPlayerVelocityZ * evt.timeSinceLastFrame);
-	mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y, mPlayer->getPlayerPosition().z-300);
+	mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y, mPlayer->getPlayerPosition().z-300 + mCameraWheelValue);
 
 	//총알 발사
 	for (int i = 0; i < 50; i++)
@@ -285,7 +288,8 @@ bool PlayState::mouseMoved(GameManager* game, const OIS::MouseEvent &e)
 	mPlayer->playerHeadYaw(-e.state.X.rel * 0.1);
 	mPlayer->playerHeadPitch(-e.state.Y.rel * 0.1);
 
-	mCamera->moveRelative(Ogre::Vector3(0, 0, -e.state.Z.rel * 0.1f));
+	//mCamera->moveRelative(Ogre::Vector3(0, 0, -e.state.Z.rel * 0.1f));
+	mCameraWheelValue += -e.state.Z.rel * 0.1f;
 
 	return true;
 }

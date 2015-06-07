@@ -114,6 +114,9 @@ private:
 	Player* mPlayer;
 	Demon* mDemon;
 	PlayerDirection mPlayerDirection;
+
+	//0607 Ä«¸Þ¶ó
+	float mCameraWheelValue;
 	
 };
 
