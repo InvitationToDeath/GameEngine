@@ -19,6 +19,7 @@ Terrain::Terrain(SceneNode* terrainNode, Vector3 terrainPosition, char* terrainN
 	mTerrainEntity = mSceneMgr->createEntity(terrainName, terrainMeshName);
 	mTerrainSceneNode = terrainNode->createChildSceneNode(terrainName, terrainPosition);
 	mTerrainSceneNode->attachObject(mTerrainEntity);
+	mTerrainEntity->setCastShadows(true);
 }
 
 //-----------------------------------------
@@ -27,12 +28,22 @@ void Terrain::createTerrain(SceneNode* terrainNode, Vector3 terrainPosition, cha
 	mTerrainEntity = mSceneMgr->createEntity(terrainName, terrainMeshName);
 	mTerrainSceneNode = terrainNode->createChildSceneNode(terrainName, terrainPosition);
 	mTerrainSceneNode->attachObject(mTerrainEntity);
+	mTerrainEntity->setCastShadows(true);
 }
 
 //-----------------------------------------
 void Terrain::setTerrainPosition(float x, float y, float z)
 {
 	mTerrainSceneNode->setPosition(x,y,z);
+}
+
+//-----------------------------------------
+void Terrain::setTerrainShadow()
+{
+	if(0 == mTerrainEntity->getCastShadows())
+		mTerrainEntity->setCastShadows(true);
+	else
+		mTerrainEntity->setCastShadows(false);
 }
 
 //-----------------------------------------

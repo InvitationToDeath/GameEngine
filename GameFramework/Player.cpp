@@ -11,19 +11,21 @@ Player::Player()
 	mCamera = mSceneMgr->getCamera("main");
 
 
-	mPlayerBodyEntity = mSceneMgr->createEntity("TurretBody1", "TurretBody.MESH.mesh");
+	mPlayerBodyEntity = mSceneMgr->createEntity("TurretBody1", "TurretBody.mesh");
 	mPlayerBodySceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("TurretBody1", Vector3(0.0f, 0.0f, 0.0f));
 	mPlayerBodySceneNode->attachObject(mPlayerBodyEntity);
-	mPlayerBodySceneNode->setScale(0.2,0.2,0.2);
+	mPlayerBodyEntity->setCastShadows(true);
+	//mPlayerBodySceneNode->setScale(0.2,0.2,0.2);
 
 	mPlayerHeadYawSceneNode = mPlayerBodySceneNode->createChildSceneNode("PlayerHeadYaw",Vector3(0.0f,0.0f,0.0f));
 	mPlayerHeadPitchSceneNode = mPlayerHeadYawSceneNode->createChildSceneNode("PlayerHeadPitch");
 
-	mPlayerHeadEntity = mSceneMgr->createEntity("TurretHead1", "TurretHead.MESH.mesh");
-	mPlayerHeadSceneNode= mPlayerHeadPitchSceneNode->createChildSceneNode("Player1", Vector3(0.0f, 0.0f, 0.0f));
+	mPlayerHeadEntity = mSceneMgr->createEntity("TurretHead1", "TurretHead.mesh");
+	mPlayerHeadSceneNode= mPlayerHeadPitchSceneNode->createChildSceneNode("Player1", Vector3(0.0f, -10.0f, 0.0f));
 	mPlayerHeadSceneNode->attachObject(mPlayerHeadEntity);
+	mPlayerHeadEntity->setCastShadows(true);
 	//mPlayerHeadSceneNode->setScale(0.2,0.2,0.2);
-	mPlayerHeadSceneNode->yaw(Degree(-90.0f));
+	mPlayerHeadSceneNode->yaw(Degree(180.0f));
 
 	bullet= new Bullet();
 

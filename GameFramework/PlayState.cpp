@@ -32,7 +32,7 @@ void PlayState::enter(void)
 	//mTerrain = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0,100,0), "floor1", "floor.mesh");
 	//mTerrain->createTerrain(mSceneMgr->getRootSceneNode(), Vector3(0,100,0), "floor1", "floor.mesh");
 
-	
+
 
 
 	_drawGridPlane();
@@ -55,7 +55,7 @@ void PlayState::enter(void)
 
 
 	//플레이어, 지형 (클래스 생성자로 모두 변경)
-	
+
 	mTerrain[0] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-230.0f, 730.0f, 0.0f), "crossrail", "crossrail.mesh");
 	//mTerrain[0]->getTerrainSceneNode()->setScale(0.5,0.5,0.5);
 	mTerrain[1] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(100, 0.0f, 0), "bullet", "bullet.mesh");
@@ -63,7 +63,8 @@ void PlayState::enter(void)
 	mTerrain[3] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "floor", "floor.mesh");
 	mTerrain[4] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Gate", "Gate.mesh");
 	mTerrain[5] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Towers", "Towers.mesh");
-	
+
+
 	/*entity[3] = mSceneMgr->createEntity("crossrail", "crossrail.mesh");
 	SceneNode* crossrail = mSceneMgr->getRootSceneNode()->createChildSceneNode("Crossrail", Vector3(-113.0f, 373.0f, 0.0f));
 	crossrail->attachObject(entity[3]);
@@ -80,16 +81,16 @@ void PlayState::enter(void)
 	entity[8] = mSceneMgr->createEntity("floor", "floor.mesh");
 	SceneNode* floor = mSceneMgr->getRootSceneNode()->createChildSceneNode("floor", Vector3(0.f, -100.0f, 0.f));
 	floor->attachObject(entity[8]);
-	
+
 	entity[9] = mSceneMgr->createEntity("Gate", "Gate.mesh");
 	SceneNode* Gate = mSceneMgr->getRootSceneNode()->createChildSceneNode("Gate", Vector3(0.f, -100.0f, 0.f));
 	Gate->attachObject(entity[9]);
-	
+
 	entity[10] = mSceneMgr->createEntity("Towers", "Towers.mesh");
 	SceneNode* Towers = mSceneMgr->getRootSceneNode()->createChildSceneNode("Towers", Vector3(0.f, -100.0f, 0.f));
 	Towers->attachObject(entity[10]);*/
 
-	
+
 
 	//총알 생성
 	for (int i = 0; i<50; ++i){
@@ -155,7 +156,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	//플레이어 이동 로직.
 	//mPlayer->getPlayerSceneNode()->translate(mPlayerX,mPlayerY,mPlayerZ);
 	mPlayer->getPlayerSceneNode()->translate(mPlayerVelocityX * evt.timeSinceLastFrame, mPlayerVelocityY * evt.timeSinceLastFrame, mPlayerVelocityZ * evt.timeSinceLastFrame);
-	mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y, mPlayer->getPlayerPosition().z-300 + mCameraWheelValue);
+	mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y + 200, mPlayer->getPlayerPosition().z + 50 + mCameraWheelValue);
 
 	//총알 발사
 	for (int i = 0; i < 50; i++)
@@ -192,9 +193,9 @@ bool PlayState::frameEnded(GameManager* game, const FrameEvent& evt)
 	guiCurr->setCaption(currFps + StringConverter::toString(stats.lastFPS));
 	guiBest->setCaption(bestFps + StringConverter::toString(stats.bestFPS));
 	guiWorst->setCaption(worstFps + StringConverter::toString(stats.worstFPS)); 
-		//추가
+	//추가
 
-		//mKeyboard->capture()
+	//mKeyboard->capture()
 	return true;
 }
 
@@ -206,26 +207,27 @@ bool PlayState::keyReleased(GameManager* game, const OIS::KeyEvent &e)
 
 	case OIS::KC_A:
 		//if(LEFT == mPlayerDirection && 0 != mPlayerVelocityX)
-			mPlayerVelocityX = 0.0f;
+		mPlayerVelocityX = 0.0f;
 		break;
 
 	case OIS::KC_D:
 		//if(RIGHT == mPlayerDirection && 0 != mPlayerVelocityX)
-			mPlayerVelocityX = 0.0f;
+		mPlayerVelocityX = 0.0f;
 		break;
 
 	case OIS::KC_W:
 		//if(UP == mPlayerDirection && 0 != mPlayerVelocityZ)
-			mPlayerVelocityZ = 0.0f;
+		mPlayerVelocityZ = 0.0f;
 
 		break;
 
 	case OIS::KC_S:
 		//if(DOWN == mPlayerDirection && 0 != mPlayerVelocityZ)
-			mPlayerVelocityZ = 0.0f;
+		mPlayerVelocityZ = 0.0f;
 
 		break;
 	}
+
 
 
 
@@ -268,10 +270,23 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 		mPlayerDirection = DOWN;
 		mPlayerVelocityZ = 150.0f;
 		break;
-	}
-	//mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y, mPlayer->getPlayerPosition().z);
+
+	case OIS::KC_1:
+		{
+			static float a = 0.0f;
+			a = (a >= 1.0f) ? 0.0f : a + 0.1f;
+			mSceneMgr->setAmbientLight(ColourValue(a, a, a));
+			mSceneMgr->setShadowTechnique(SHADOWTYPE_STENCIL_ADDITIVE);
+		}
+		break;
+	case OIS::KC_2: mLightD->setVisible(!mLightD->getVisible()); break;
+	case OIS::KC_3: mLightP->setVisible(!mLightP->getVisible()); break;
+	case OIS::KC_4: mLightS->setVisible(!mLightS->getVisible()); break;
 	
-	return true;
+}
+//mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y, mPlayer->getPlayerPosition().z);
+
+return true;
 }
 
 bool PlayState::mousePressed(GameManager* game, const OIS::MouseEvent &e, OIS::MouseButtonID id)
@@ -299,7 +314,7 @@ bool PlayState::mouseReleased(GameManager* game, const OIS::MouseEvent &e, OIS::
 
 bool PlayState::mouseMoved(GameManager* game, const OIS::MouseEvent &e)
 {
-	
+
 	mCamera->yaw(Degree(-e.state.X.rel * 0.1));
 	mCamera->pitch(Degree(-e.state.Y.rel * 0.1));
 
@@ -317,13 +332,32 @@ bool PlayState::mouseMoved(GameManager* game, const OIS::MouseEvent &e)
 
 void PlayState::_setLights(void)
 {
-	mSceneMgr->setAmbientLight(ColourValue(0.7f, 0.7f, 0.7f));
+	/*mSceneMgr->setAmbientLight(ColourValue(0.7f, 0.7f, 0.7f));
 	mSceneMgr->setShadowTechnique(SHADOWTYPE_STENCIL_ADDITIVE);
 
 	mLightD = mSceneMgr->createLight("LightD");
 	mLightD->setType(Light::LT_DIRECTIONAL);
 	mLightD->setDirection(Vector3(1, -2.0f, -1));
-	mLightD->setVisible(true);
+	mLightD->setVisible(true);*/
+
+
+	mSceneMgr->setAmbientLight(ColourValue(0.3f, 0.3f, 0.3f));
+	mLightD = mSceneMgr->createLight("LightD");
+	mLightD->setType(Light::LT_DIRECTIONAL);
+	mLightD->setDirection( Vector3( 1, -2.0f, -1 ) );
+	mLightD->setVisible(false);
+	mLightP = mSceneMgr->createLight("LightP");
+	mLightP->setType( Light::LT_POINT );
+	mLightP->setPosition( Vector3(-250, 50, 250) );
+	mLightP->setVisible(true);
+	mLightS = mSceneMgr->createLight("LightS");
+	mLightS->setType( Light::LT_SPOTLIGHT );
+	mLightS->setDirection(Ogre::Vector3::NEGATIVE_UNIT_Y);
+	mLightS->setPosition( Vector3( 250, 900, 250) );
+	mLightS->setSpotlightRange( Degree(10), Degree(80));
+	mLightS->setVisible(false);
+
+	mSceneMgr->setShadowTechnique(SHADOWTYPE_STENCIL_ADDITIVE);
 }
 
 void PlayState::_drawGroundPlane(void)
@@ -338,6 +372,7 @@ void PlayState::_drawGroundPlane(void)
 		true, 1, 5, 5,
 		Vector3::NEGATIVE_UNIT_Z
 		);
+
 }
 
 void PlayState::_drawGridPlane(void)
