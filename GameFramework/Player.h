@@ -18,9 +18,9 @@ public:
 	void setPlayerPosition(float x, float y, float z); Vector3 getPlayerPosition();
 	void playerHeadYaw(float yawValue); void playerHeadPitch(float pitchValue);
 	SceneNode* getPlayerSceneNode();
-	void fireBullet();
+	void fireBullet(Vector3 direction,Quaternion position);
 	void playerDie();
-
+	void bulletUpdate(Ogre::Real time);
 protected:
 
 private:
@@ -42,5 +42,6 @@ private:
 	Ogre::Camera* mCamera;
 	Ogre::Root* mRoot;
 
-	Bullet* bullet;
+	Bullet* bullet[50];
+	int bulletNumber;
 };

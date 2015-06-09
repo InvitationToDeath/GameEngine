@@ -4,7 +4,7 @@
 using namespace Ogre;
 
 //-------------------------------------------
-Bullet::Bullet()
+Bullet::Bullet(int Number) : mBulletNumber(Number)
 {
 	mRoot = Root::getSingletonPtr(); 
 	mSceneMgr = mRoot->getSceneManager("main");
@@ -17,6 +17,33 @@ Bullet::Bullet()
 
 	mBulletSceneNode->setPosition(0,0,-500);
 	//mPlayerHeadSceneNode->setScale(0.2,0.2,0.2);
+	//std::cout<<"bullet create"<<std::endl;
 	
+}
+
+void Bullet::fire(Vector3 direction,Vector3 position){
+
+
+}
+
+void Bullet::update(Ogre::Real timeSinceLastFrame){
+
+	//ÃÑ¾Ë ¹ß»ç
+	std::cout<<"bullet update()"<<std::endl;
 	
+	mBulletSceneNode->translate(mBulletDirection.normalisedCopy() * 500 * timeSinceLastFrame, Node::TransformSpace::TS_LOCAL);
+	//std::cout<<mBulletSceneNode->getPosition()<<std::endl;
+
+}
+
+void Bullet::setBulletPosition(Vector3 position){
+	
+	mBulletSceneNode->setPosition(position);
+	mBulletDirection=position;
+	mBulletDirection.z=-mBulletDirection.z;
+}
+
+void Bullet::setBulletQuternion(Quaternion direction){
+	mBulletSceneNode->setOrientation(direction);
+
 }

@@ -92,22 +92,22 @@ void PlayState::enter(void)
 
 
 
-	//총알 생성
-	for (int i = 0; i<50; ++i){
-		sprintf(bName, "Bullet%d", i);
-		bEntity[i] = mSceneMgr->createEntity(bName, "IronBall.mesh");
-		Bullet[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(bName, Vector3(Vector3::ZERO));
-		Bullet[i]->attachObject(bEntity[i]);
-		/*	Demon[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(bName,Vector3(Vector3::ZERO));
-		Demon[i]->attachObject(bEntity[i]);
-		Demon[i]->setPosition(0,0,100);
-		Demon[i]->setPosition(rand()%3000-1500, rand()%2000, -(rand()%5000+1000));*/
-	}
-	//비활성화
-	for (int i = 0; i < 50; i++)
-	{
-		goBullet[i] = false;
-	}
+	////총알 생성
+	//for (int i = 0; i<50; ++i){
+	//	sprintf(bName, "Bullet%d", i);
+	//	bEntity[i] = mSceneMgr->createEntity(bName, "IronBall.mesh");
+	//	Bullet[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(bName, Vector3(Vector3::ZERO));
+	//	Bullet[i]->attachObject(bEntity[i]);
+	//	/*	Demon[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(bName,Vector3(Vector3::ZERO));
+	//	Demon[i]->attachObject(bEntity[i]);
+	//	Demon[i]->setPosition(0,0,100);
+	//	Demon[i]->setPosition(rand()%3000-1500, rand()%2000, -(rand()%5000+1000));*/
+	//}
+	////비활성화
+	//for (int i = 0; i < 50; i++)
+	//{
+	//	goBullet[i] = false;
+	//}
 
 
 	dest = Vector3::ZERO;
@@ -158,17 +158,18 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	mPlayer->getPlayerSceneNode()->translate(mPlayerVelocityX * evt.timeSinceLastFrame, mPlayerVelocityY * evt.timeSinceLastFrame, mPlayerVelocityZ * evt.timeSinceLastFrame);
 	mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y + 200, mPlayer->getPlayerPosition().z + 50 + mCameraWheelValue);
 
-	//총알 발사
-	for (int i = 0; i < 50; i++)
-	{
-		if (goBullet[i] == true){
-			//mBulletDirection.z=-mBulletDirection.z;
+	////총알 발사
+	//for (int i = 0; i < 50; i++)
+	//{
+	//	if (goBullet[i] == true){
+	//		//mBulletDirection.z=-mBulletDirection.z;
 
-			Bullet[i]->translate(mBulletDirection[i].normalisedCopy() * 1000 * evt.timeSinceLastFrame, Node::TransformSpace::TS_LOCAL);
-			//Bullet[i]->translate(0,0,-speed*evt.timeSinceLastFrame);
-		}
-	}
+	//		Bullet[i]->translate(mBulletDirection[i].normalisedCopy() * 1000 * evt.timeSinceLastFrame, Node::TransformSpace::TS_LOCAL);
+	//		//Bullet[i]->translate(0,0,-speed*evt.timeSinceLastFrame);
+	//	}
+	//}
 
+	mPlayer->bulletUpdate(evt.timeSinceLastFrame);
 	mDemon->trace(mPlayer->getPlayerSceneNode());
 	mDemon->update(evt.timeSinceLastFrame);
 
@@ -292,17 +293,35 @@ return true;
 bool PlayState::mousePressed(GameManager* game, const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
 	if (e.state.buttonDown(OIS::MB_Left)) {
-		mBulletDirection[bulletNumber] = mCamera->getPosition();
-		goBullet[bulletNumber] = true;
-		//0606 수정
-		Bullet[bulletNumber]->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y + 100, mPlayer->getPlayerPosition().z);
-		Bullet[bulletNumber]->setOrientation(mCamera->getOrientation());
-		mBulletDirection[bulletNumber].z = -mBulletDirection[bulletNumber].z;
-		bulletNumber++;
+		//mBulletDirection[bulletNumber] = mCamera->getPosition();
+		//goBullet[bulletNumber] = true;
+		////0606 수정
+		//Bullet[bulletNumber]->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y + 100, mPlayer->getPlayerPosition().z);
+		//Bullet[bulletNumber]->setOrientation(mCamera->getOrientation());
+		//mBulletDirection[bulletNumber].z = -mBulletDirection[bulletNumber].z;
+		//bulletNumber++;
 
-		if (bulletNumber >= 50)
-			bulletNumber = 0;
+		//if (bulletNumber >= 50)
+		//	bulletNumber = 0;
+
+
+		//mBulletDirection = mCamera->getPosition();
+		////goBullet[bulletNumber] = true;
+		////0606 수정
+		//Bullet[bulletNumber]->setPosition(mPlayer->getPlayerPosition().x, 
+		//	mPlayer->getPlayerPosition().y + 100, mPlayer->getPlayerPosition().z);
+		//Bullet[bulletNumber]->setOrientation(mCamera->getOrientation());
+		//mBulletDirection.z = -mBulletDirection.z;
+		//bulletNumber++;
+
+		//if (bulletNumber >= 50)
+		//	bulletNumber = 0;
+
+		mPlayer->fireBullet(mCamera->getPosition(),mCameraHolder->getOrientation());
+
 	}
+
+
 	return true;
 }
 

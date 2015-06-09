@@ -9,14 +9,15 @@ using namespace Ogre;
 class Bullet
 {
 public:
-	Bullet();
+	Bullet(int Number);
 	~Bullet();
-	void fire();
-	void update();
-
+	void fire(Vector3 direction,Vector3 position);
+	void update(Ogre::Real timeSinceLastFrame);
 	void createPlayer();
 	void setHP(int hp); int getHP();
-	void setPlayerPosition(float x, float y, float z); Vector3 getPlayerPosition();
+	void setBulletPosition(Vector3 position); 
+	void setBulletQuternion(Quaternion direction);
+	Vector3 getPlayerPosition();
 	void playerHeadYaw(float yawValue); void playerHeadPitch(float pitchValue);
 	SceneNode* getPlayerSceneNode();
 	void fireBullet();
@@ -39,5 +40,7 @@ private:
 
 	char mName[15];
 	int mBulletNumber;
+	Vector3 mBulletDirection;
+
 
 };

@@ -105,7 +105,10 @@ private:
 
 	char bName[50];
 	Entity* bEntity[50];
-	Vector3 mBulletDirection[50];
+	//Vector3 mBulletDirection[50];
+	Vector3 mBulletDirection;
+
+
 	SceneNode* Bullet[50];
 	int bulletNumber;
 	Real speed;
