@@ -1,0 +1,10 @@
+BossAttack
+BossAttack2
+BossDead
+BossIdle
+BossSpawn
+
+DemonAttack
+DemonDameged
+DemonDead
+DemonIdle
