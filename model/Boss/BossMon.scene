@@ -6,11 +6,11 @@
         <clipping near="0" far="254000"/>
     </environment>
     <nodes>
-        <node name="BossMesh">
+        <node name="Bossmon">
             <position x="0" y="-2973.75" z="0.000129987"/>
             <scale x="0.286" y="0.286" z="0.286"/>
             <rotation qx="0" qy="0" qz="0" qw="1"/>
-            <entity name="BossMesh" castShadows="true" receiveShadows="true" meshFile="BossMesh.mesh">
+            <entity name="Bossmon" castShadows="true" receiveShadows="true" meshFile="Bossmon.mesh">
                 <subentities>
                     <subentity index="0" materialName="Material#0"/>
                 </subentities>
