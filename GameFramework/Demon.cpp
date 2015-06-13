@@ -9,12 +9,12 @@ Demon::Demon()
 
 
 	sprintf(mName, "Demon%d", mDemonNumber);
-	mDemonEntity=mSceneMgr->createEntity(mName, "GEdemon.mesh");
+	mDemonEntity=mSceneMgr->createEntity(mName, "Demon.mesh");
 	mDemonNode=mSceneMgr->getRootSceneNode()->createChildSceneNode(mName,Vector3(Vector3::ZERO));
 	mDemonNode->attachObject(mDemonEntity);
 //	mDemonNode->setPosition(rand()%3000-1500, rand()%2000, -(rand()%5000+1000));
 	mDemonNode->setPosition(100,500,-2000);
-	mDemonAnimationState = mDemonEntity->getAnimationState("idle");
+	mDemonAnimationState = mDemonEntity->getAnimationState("DemonIdle");
 	mDemonAnimationState->setLoop(true);
 	mDemonAnimationState->setEnabled(true);
 	sinAngle=0;
@@ -71,7 +71,7 @@ void Demon::trace(SceneNode* destNode)
 		mDemonAnimationState->setEnabled(false);
 		mDemonAnimationState->setLoop(false);
 		//quat = Vector3(Vector3::UNIT_Z).getRotationTo(destNode->getPosition());
-		mDemonAnimationState = mDemonEntity->getAnimationState("atk");
+		mDemonAnimationState = mDemonEntity->getAnimationState("DemonAttack");
 		mDemonAnimationState->setLoop(true);
 		mDemonAnimationState->setEnabled(true);
 	}

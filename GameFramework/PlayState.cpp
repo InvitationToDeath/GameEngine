@@ -1,6 +1,7 @@
 #include "PlayState.h"
 #include "TitleState.h"
 #include "Player.h"
+#include "Boss.h"
 
 #include <vector>
 
@@ -21,12 +22,16 @@ void PlayState::enter(void)
 	mSceneMgr = mRoot->getSceneManager("main");
 	mCamera = mSceneMgr->getCamera("main");
 	mCamera->setPosition(Ogre::Vector3::ZERO);
+	//mCamera->setFOVy(Degree(30));
+	mCamera->setFarClipDistance(5000.0f);
+
 
 	//0607
 	mCameraWheelValue = 0;
 
 	mPlayer = new Player;
 	mDemon = new Demon;
+	mBoss = new Boss;
 
 	//mTerrain = new Terrain;
 	//mTerrain = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0,100,0), "floor1", "floor.mesh");
@@ -172,6 +177,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	mPlayer->bulletUpdate(evt.timeSinceLastFrame);
 	mDemon->trace(mPlayer->getPlayerSceneNode());
 	mDemon->update(evt.timeSinceLastFrame);
+	mBoss->update(evt.timeSinceLastFrame);
 
 	return true;
 }

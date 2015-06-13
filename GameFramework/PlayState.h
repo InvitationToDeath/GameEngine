@@ -5,6 +5,7 @@
 #include "GameState.h"
 #include "Demon.h"
 #include "Terrain.h"
+#include "Boss.h"
 
 #include "windows.h"
 #include "math.h"
@@ -117,6 +118,7 @@ private:
 	//클래스용 추가
 	Player* mPlayer;
 	Demon* mDemon;
+	Boss* mBoss;
 	Terrain* mTerrain[10];
 	PlayerDirection mPlayerDirection;
 
