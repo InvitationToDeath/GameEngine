@@ -63,28 +63,11 @@ void Demon::update(Ogre::Real timeSinceLastFrame)
 
 bool Demon::collisionCheck(Vector3 bulletVector)//Bullet* bullet[])
 {
-	//for(int i = 0; i < 50; ++i)
-	//{
-		//cout<<bulletVector<<endl;
-		//cout << Player::mBulletNumber << endl;
-		//mBullet[0]->getBulletPosition();
-		//cout<<bullet[i]->mBulletPosition<<endl;
-		/*if( mDemonNode->getPosition().x-50 < bullet[i]->getBulletPosition().x ||
-			bullet[i]->getBulletPosition().x < mDemonNode->getPosition().x+50 )
-			cout << "충돌 발생!" << endl;*/
-	//}
 	if( (mDemonNode->getPosition().x-50 < bulletVector.x &&	bulletVector.x < mDemonNode->getPosition().x+50) &&
 		(mDemonNode->getPosition().y < bulletVector.y &&	bulletVector.y < mDemonNode->getPosition().y+150)&&
-		(mDemonNode->getPosition().z < bulletVector.z &&	bulletVector.z < mDemonNode->getPosition().z+50)
-			
-			
-			
-			
-			
-			
-		)
+		(mDemonNode->getPosition().z < bulletVector.z &&	bulletVector.z < mDemonNode->getPosition().z+50))
 	{
-			cout << "충돌 발생!" << endl;
+			cout << "악마 충돌 발생!" << endl;
 			//system("cls");
 			return true;
 	}
@@ -99,7 +82,7 @@ void Demon::trace(SceneNode* destNode)
 	quat = Vector3(Vector3::UNIT_Z).getRotationTo(mDirection);
 	mDemonNode->setOrientation(quat);
 	
-	if(mDistance<=60){
+	if(mDistance<=120){
 		mDemonAnimationState->setEnabled(false);
 		mDemonAnimationState->setLoop(false);
 		//quat = Vector3(Vector3::UNIT_Z).getRotationTo(destNode->getPosition());

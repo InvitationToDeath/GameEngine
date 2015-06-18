@@ -13,6 +13,7 @@ public:
 	Boss();
 	~Boss();
 	void update(Ogre::Real timeSinceLastFrame);
+	bool collisionCheck(Vector3 bulletVector);
 	void setPosition(Vector3 position);
 	//void trace(SceneNode* destNode);
 private:
