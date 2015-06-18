@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "GameState.h"
 #include "Bullet.h"
+#define PI 3.141592
 
 using namespace Ogre;
 
@@ -24,6 +25,9 @@ public:
 	/*Bullet** getBullet();*/
 	Bullet* mBullet[50];
 	int mBulletNumber;
+
+	void runOut(Ogre::Real time,Ogre::Camera* camera);
+	void runOutStart();
 protected:
 
 private:
@@ -47,5 +51,7 @@ private:
 
 	bool mBulletIsFull;
 
-	
+	bool mRunout;
+	int mSinAngle;
+	int mRunoutDegree;
 };

@@ -15,7 +15,7 @@ public:
 	Skull();
 	~Skull();
 	void update(Ogre::Real timeSinceLastFrame);
-	void collisionCheck();
+	bool collisionCheck(Vector3 bulletVector);
 	void setPosition(Vector3 position){
 		mSkullNode->setPosition(position);	
 	}

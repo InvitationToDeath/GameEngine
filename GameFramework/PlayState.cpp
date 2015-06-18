@@ -70,8 +70,11 @@ void PlayState::enter(void)
 	mTerrain[4] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Gate", "Gate.mesh");
 	mTerrain[5] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Towers", "Towers.mesh");
 
-	mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 100.0f, 0.f), "Bullet1z", "IronBall.mesh");
+	mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-150.f, 1600.0f, -2800.f), "Bullet1z", "Skull.mesh");
+	mTerrain[7] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(150.f, 2300.0f, -2800.f), "Bullet1zx", "Skull.mesh");
 
+	//mTerrain[7] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 0.0f, 0.f), "skulltest", "Skull.mesh");
+	//mTerrain[7]->getTerrainSceneNode()->setScale(5,5,5);
 
 	/*entity[3] = mSceneMgr->createEntity("crossrail", "crossrail.mesh");
 	SceneNode* crossrail = mSceneMgr->getRootSceneNode()->createChildSceneNode("Crossrail", Vector3(-113.0f, 373.0f, 0.0f));
@@ -181,17 +184,28 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	mDemon->trace(mPlayer->getPlayerSceneNode());
 	mDemon->update(evt.timeSinceLastFrame);
 	mBoss->update(evt.timeSinceLastFrame);
-<<<<<<< HEAD
+
 	mSkull->update(evt.timeSinceLastFrame);
 	mSkull->trace(mPlayer->getPlayerSceneNode());
-=======
 
-	//데몬 충돌체크
+	//카메라 흔들림
+	mPlayer->runOut(evt.timeSinceLastFrame,mCamera);
+
+	//충돌체크
 	for(int i = 0; i < mPlayer->mBulletNumber; ++i)
-		mDemon->collisionCheck(mPlayer->mBullet[i]->mBulletPosition);//mPlayer->mBullet);
+	{
+		if(mDemon->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))//만약 충동하면 총알 없애도록.
+			mPlayer->mBullet[i];
+		if(mSkull->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))
+			mPlayer->mBullet[i];
+		if(mBoss->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))
+			mPlayer->mBullet[i];
+	}
+	////해골 충돌체크
+	//for(int i = 0; i < mPlayer->mBulletNumber; ++i)
+	//	mSkull->collisionCheck(mPlayer->mBullet[i]->mBulletPosition);
 
 
->>>>>>> origin/master
 	return true;
 }
 
@@ -302,11 +316,11 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 	case OIS::KC_2: mLightD->setVisible(!mLightD->getVisible()); break;
 	case OIS::KC_3: mLightP->setVisible(!mLightP->getVisible()); break;
 	case OIS::KC_4: mLightS->setVisible(!mLightS->getVisible()); break;
-	
-}
-//mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y, mPlayer->getPlayerPosition().z);
 
-return true;
+	}
+	//mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y, mPlayer->getPlayerPosition().z);
+
+	return true;
 }
 
 bool PlayState::mousePressed(GameManager* game, const OIS::MouseEvent &e, OIS::MouseButtonID id)
@@ -337,7 +351,7 @@ bool PlayState::mousePressed(GameManager* game, const OIS::MouseEvent &e, OIS::M
 		//	bulletNumber = 0;
 
 		mPlayer->fireBullet(mCamera->getPosition(),mCamera->getOrientation());
-
+		mPlayer->runOutStart();
 	}
 
 

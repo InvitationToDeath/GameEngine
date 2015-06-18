@@ -123,7 +123,27 @@ void Player::bulletUpdate(Ogre::Real time){
 	//std::cout<<"update"<<std::endl;
 
 }
+////-------------------------------------------
+void Player::runOutStart(){
+	mSinAngle=90;
+	mRunout=true;
+	mRunoutDegree=3000;
 
+}
+////-------------------------------------------
+void Player::runOut(Ogre::Real time,Ogre::Camera* camera){
+	mRunoutDegree=-mRunoutDegree;
+	if(mRunout==true){
+		mPlayerBodySceneNode->translate(0,mRunoutDegree*sin((mSinAngle *(PI / 180)))*time,0);
+		//mPlayerHeadSceneNode->translate(0,mRunoutDegree*sin((mSinAngle *(PI / 180)))*time,0);
+		camera->move(Vector3(0,mRunoutDegree*sin((mSinAngle *(PI / 180)))*time,0));
+		if(mSinAngle>=0)
+			mSinAngle-=1;
+		else
+			mRunout=false;
+	}
+
+}
 ////-------------------------------------------
 //Bullet** Player::getBullet()
 //{

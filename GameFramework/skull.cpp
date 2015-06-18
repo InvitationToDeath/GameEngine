@@ -1,5 +1,7 @@
 #include "Skull.h"
 
+using namespace std;
+
 Skull::Skull()
 {
 	mSkullNumber=0;
@@ -58,6 +60,24 @@ void Skull::update(Ogre::Real timeSinceLastFrame)
 	}
 	//mSkullAnimationState->addTime(timeSinceLastFrame);
 
+}
+
+bool Skull::collisionCheck(Vector3 bulletVector)//Bullet* bullet[])
+{
+	//cout<<mSkullNode->getPosition()<<endl;
+
+	if( (mSkullNode->getPosition().x-50 < bulletVector.x &&	bulletVector.x < mSkullNode->getPosition().x+50) &&
+		(mSkullNode->getPosition().y-55 < bulletVector.y &&	bulletVector.y < mSkullNode->getPosition().y+55)&&
+		(mSkullNode->getPosition().z-25 < bulletVector.z &&	bulletVector.z < mSkullNode->getPosition().z+25)
+		
+		
+		)
+	{
+			cout << "해골 충돌 발생!" << endl;
+			//system("cls");
+			return true;
+	}
+	return false;
 }
 
 void Skull::trace(SceneNode* destNode)
