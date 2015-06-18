@@ -23,7 +23,7 @@ void PlayState::enter(void)
 	mCamera = mSceneMgr->getCamera("main");
 	mCamera->setPosition(Ogre::Vector3::ZERO);
 	//mCamera->setFOVy(Degree(30));
-	mCamera->setFarClipDistance(5000.0f);
+	mCamera->setFarClipDistance(50000.0f);
 
 
 	//0607
@@ -68,6 +68,8 @@ void PlayState::enter(void)
 	mTerrain[3] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "floor", "floor.mesh");
 	mTerrain[4] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Gate", "Gate.mesh");
 	mTerrain[5] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Towers", "Towers.mesh");
+
+	mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 100.0f, 0.f), "Bullet00", "IronBall.mesh");
 
 
 	/*entity[3] = mSceneMgr->createEntity("crossrail", "crossrail.mesh");
