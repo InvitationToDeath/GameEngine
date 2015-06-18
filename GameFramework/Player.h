@@ -21,6 +21,7 @@ public:
 	void fireBullet(Vector3 direction,Quaternion position);
 	void playerDie();
 	void bulletUpdate(Ogre::Real time);
+	/*Bullet** getBullet();*/
 protected:
 
 private:
@@ -42,6 +43,6 @@ private:
 	Ogre::Camera* mCamera;
 	Ogre::Root* mRoot;
 
-	Bullet* bullet[50];
-	int bulletNumber;
+	Bullet* mBullet[50];
+	int mBulletNumber;
 };
