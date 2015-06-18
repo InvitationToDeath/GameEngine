@@ -32,6 +32,7 @@ void PlayState::enter(void)
 	mPlayer = new Player;
 	mDemon = new Demon;
 	mBoss = new Boss;
+	mSkull = new Skull;
 
 	//mTerrain = new Terrain;
 	//mTerrain = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0,100,0), "floor1", "floor.mesh");
@@ -180,7 +181,8 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	mDemon->trace(mPlayer->getPlayerSceneNode());
 	mDemon->update(evt.timeSinceLastFrame);
 	mBoss->update(evt.timeSinceLastFrame);
-
+	mSkull->update(evt.timeSinceLastFrame);
+	mSkull->trace(mPlayer->getPlayerSceneNode());
 	return true;
 }
 

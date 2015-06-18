@@ -6,6 +6,7 @@
 #include "Demon.h"
 #include "Terrain.h"
 #include "Boss.h"
+#include "skull.h"
 
 #include "windows.h"
 #include "math.h"
@@ -119,6 +120,7 @@ private:
 	Player* mPlayer;
 	Demon* mDemon;
 	Boss* mBoss;
+	Skull* mSkull;
 	Terrain* mTerrain[10];
 	PlayerDirection mPlayerDirection;
 
