@@ -34,7 +34,7 @@ void Bullet::update(Ogre::Real timeSinceLastFrame){
 //	mBulletSceneNode->translate(mBulletDirection.normalisedCopy() * 500 * timeSinceLastFrame, Node::TransformSpace::TS_LOCAL);
 	mBulletSceneNode->translate(Vector3(0,0,-1) * 3000 * timeSinceLastFrame, Node::TransformSpace::TS_LOCAL);
 	//std::cout<<mBulletSceneNode->getPosition()<<std::endl;
-
+	mBulletPosition = mBulletSceneNode->getPosition();
 }
 
 void Bullet::setBulletPosition(Vector3 position){

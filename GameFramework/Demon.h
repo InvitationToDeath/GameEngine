@@ -15,7 +15,7 @@ public:
 	Demon();
 	~Demon();
 	void update(Ogre::Real timeSinceLastFrame);
-	void collisionCheck();
+	bool collisionCheck(Vector3 bulletVector);//Bullet* bullet[]);
 	void setPosition(Vector3 position){
 		mDemonNode->setPosition(position);	
 	}

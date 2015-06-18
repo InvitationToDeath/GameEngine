@@ -181,6 +181,11 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	mDemon->update(evt.timeSinceLastFrame);
 	mBoss->update(evt.timeSinceLastFrame);
 
+	//데몬 충돌체크
+	for(int i = 0; i < mPlayer->mBulletNumber; ++i)
+		mDemon->collisionCheck(mPlayer->mBullet[i]->mBulletPosition);//mPlayer->mBullet);
+
+
 	return true;
 }
 
