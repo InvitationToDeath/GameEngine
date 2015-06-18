@@ -82,7 +82,7 @@ void Demon::trace(SceneNode* destNode)
 	quat = Vector3(Vector3::UNIT_Z).getRotationTo(mDirection);
 	mDemonNode->setOrientation(quat);
 	
-	if(mDistance<=60){
+	if(mDistance<=120){
 		mDemonAnimationState->setEnabled(false);
 		mDemonAnimationState->setLoop(false);
 		//quat = Vector3(Vector3::UNIT_Z).getRotationTo(destNode->getPosition());

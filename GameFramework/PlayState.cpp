@@ -281,28 +281,32 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 
 		//mCameraPositionX -= 3.0f;
 		mPlayerDirection = LEFT;
-		mPlayerVelocityX = -150.0f;
+		if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
+			mPlayerVelocityX = -150.0f;
 		break;
 
 	case OIS::KC_D:
 
 		//mPlayerX = mCameraPositionX += 3.0f;
 		mPlayerDirection = RIGHT;
-		mPlayerVelocityX = 150.0f;
+		if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
+			mPlayerVelocityX = 150.0f;
 		break;
 
 	case OIS::KC_W:
 
 		//mPlayerZ = mCameraPositionZ -= 3.0f;
 		mPlayerDirection = UP;
-		mPlayerVelocityZ = -150.0f;
+		if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
+			mPlayerVelocityZ = -150.0f;
 		break;
 
 	case OIS::KC_S:
 
 		//mPlayerZ = mCameraPositionZ += 3.0f;
 		mPlayerDirection = DOWN;
-		mPlayerVelocityZ = 150.0f;
+		if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
+			mPlayerVelocityZ = 150.0f;
 		break;
 
 	case OIS::KC_1:
