@@ -325,7 +325,7 @@ bool PlayState::mousePressed(GameManager* game, const OIS::MouseEvent &e, OIS::M
 		//if (bulletNumber >= 50)
 		//	bulletNumber = 0;
 
-		mPlayer->fireBullet(mCamera->getPosition(),mCameraHolder->getOrientation());
+		mPlayer->fireBullet(mCamera->getPosition(),mCamera->getOrientation());
 
 	}
 
