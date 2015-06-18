@@ -23,7 +23,7 @@ void PlayState::enter(void)
 	mCamera = mSceneMgr->getCamera("main");
 	mCamera->setPosition(Ogre::Vector3::ZERO);
 	//mCamera->setFOVy(Degree(30));
-	mCamera->setFarClipDistance(50000.0f);
+	//mCamera->setFarClipDistance(100.0f);
 
 
 	//0607

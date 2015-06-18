@@ -26,7 +26,7 @@ Player::Player()
 	mPlayerHeadEntity->setCastShadows(true);
 	//mPlayerHeadSceneNode->setScale(0.2,0.2,0.2);
 	mPlayerHeadSceneNode->yaw(Degree(180.0f));
-	bulletNumber=0;
+	mBulletNumber=0;
 
 }
 
@@ -82,27 +82,18 @@ SceneNode* Player::getPlayerSceneNode()
 void Player::fireBullet(Vector3 position,Quaternion direction)
 {
 	
-	bullet[bulletNumber]= new Bullet(bulletNumber);
+	mBullet[mBulletNumber]= new Bullet(mBulletNumber);
 	std::cout<<"fire1"<<std::endl;
 	
-	bullet[bulletNumber]->setBulletPosition(position);
+	mBullet[mBulletNumber]->setBulletPosition(position);
 	std::cout<<"fire2"<<std::endl;
-	bullet[bulletNumber]->setBulletQuternion(direction);
+	mBullet[mBulletNumber]->setBulletQuternion(direction);
 	std::cout<<"fire3"<<std::endl;
 	
-	if(bulletNumber<49)
-		bulletNumber++;
+	if(mBulletNumber<49)
+		mBulletNumber++;
 	else
-		bulletNumber=0;
-}
-//-------------------------------------------
-void Player::bulletUpdate(Ogre::Real time){
-	for(int i=0; i<bulletNumber;++i){
-		
-		bullet[i]->update(time);
-	}
-	//std::cout<<"update"<<std::endl;
-
+		mBulletNumber=0;
 }
 
 //-------------------------------------------
@@ -111,3 +102,18 @@ void Player::playerDie()
 
 }
 
+//-------------------------------------------
+void Player::bulletUpdate(Ogre::Real time){
+	for(int i=0; i<mBulletNumber;++i){
+		
+		mBullet[i]->update(time);
+	}
+	//std::cout<<"update"<<std::endl;
+
+}
+
+////-------------------------------------------
+//Bullet** Player::getBullet()
+//{
+//	return mBullet;
+//}

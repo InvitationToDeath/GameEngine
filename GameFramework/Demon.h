@@ -3,6 +3,7 @@
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <iostream>
+#include "Player.h"
 #define PI 3.141592
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console" )
@@ -14,6 +15,7 @@ public:
 	Demon();
 	~Demon();
 	void update(Ogre::Real timeSinceLastFrame);
+	void collisionCheck();
 	void setPosition(Vector3 position){
 		mDemonNode->setPosition(position);	
 	}
