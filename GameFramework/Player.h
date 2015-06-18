@@ -25,16 +25,11 @@ public:
 	/*Bullet** getBullet();*/
 	Bullet* mBullet[50];
 	int mBulletNumber;
-<<<<<<< HEAD
-	void runOut(Ogre::Real time,Ogre::Camera* camera);
-	void runOutStart();
-
-
-=======
 
 	void runOut(Ogre::Real time,Ogre::Camera* camera);
 	void runOutStart();
->>>>>>> origin/master
+
+
 protected:
 
 private:
@@ -61,8 +56,5 @@ private:
 	bool mRunout;
 	int mSinAngle;
 	int mRunoutDegree;
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 };

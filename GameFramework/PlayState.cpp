@@ -184,15 +184,14 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	mDemon->trace(mPlayer->getPlayerSceneNode());
 	mDemon->update(evt.timeSinceLastFrame);
 	mBoss->update(evt.timeSinceLastFrame);
-<<<<<<< HEAD
-	mSkull->update(evt.timeSinceLastFrame);
-	mSkull->trace(mPlayer->getPlayerSceneNode());
-	mPlayer->runOut(evt.timeSinceLastFrame,mCamera);
-=======
 
 	mSkull->update(evt.timeSinceLastFrame);
 	mSkull->trace(mPlayer->getPlayerSceneNode());
->>>>>>> origin/master
+	
+
+	mSkull->update(evt.timeSinceLastFrame);
+	mSkull->trace(mPlayer->getPlayerSceneNode());
+
 
 	//카메라 흔들림
 	mPlayer->runOut(evt.timeSinceLastFrame,mCamera);
@@ -212,10 +211,6 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	//	mSkull->collisionCheck(mPlayer->mBullet[i]->mBulletPosition);
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 	return true;
 }
 
