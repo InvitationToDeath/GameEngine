@@ -27,6 +27,7 @@ Player::Player()
 	//mPlayerHeadSceneNode->setScale(0.2,0.2,0.2);
 	mPlayerHeadSceneNode->yaw(Degree(180.0f));
 	mBulletNumber=0;
+	mBulletIsFull=false;
 
 }
 
@@ -81,8 +82,8 @@ SceneNode* Player::getPlayerSceneNode()
 //-------------------------------------------
 void Player::fireBullet(Vector3 position,Quaternion direction)
 {
-	
-	mBullet[mBulletNumber]= new Bullet(mBulletNumber);
+	if(mBulletIsFull!=true)
+		mBullet[mBulletNumber]= new Bullet(mBulletNumber);
 	std::cout<<"fire1"<<std::endl;
 	
 	mBullet[mBulletNumber]->setBulletPosition(position);
@@ -90,6 +91,9 @@ void Player::fireBullet(Vector3 position,Quaternion direction)
 	mBullet[mBulletNumber]->setBulletQuternion(direction);
 	std::cout<<"fire3"<<std::endl;
 	
+	if(mBulletNumber==49)
+		mBulletIsFull=true;
+
 	if(mBulletNumber<49)
 		mBulletNumber++;
 	else
@@ -104,9 +108,17 @@ void Player::playerDie()
 
 //-------------------------------------------
 void Player::bulletUpdate(Ogre::Real time){
-	for(int i=0; i<mBulletNumber;++i){
-		
-		mBullet[i]->update(time);
+	
+	if(mBulletIsFull==true){
+		for(int i=0; i<50;++i){
+			mBullet[i]->update(time);
+		}
+	}
+	else
+	{
+		for(int i=0; i<mBulletNumber;++i){
+			mBullet[i]->update(time);
+		}
 	}
 	//std::cout<<"update"<<std::endl;
 

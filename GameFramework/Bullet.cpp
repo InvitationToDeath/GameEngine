@@ -18,7 +18,7 @@ Bullet::Bullet(int Number) : mBulletNumber(Number)
 	mBulletSceneNode->setPosition(0,0,-500);
 	//mPlayerHeadSceneNode->setScale(0.2,0.2,0.2);
 	//std::cout<<"bullet create"<<std::endl;
-	
+	mAlive=true;
 }
 
 void Bullet::fire(Vector3 direction,Vector3 position){

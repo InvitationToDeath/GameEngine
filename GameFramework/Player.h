@@ -22,6 +22,8 @@ public:
 	void playerDie();
 	void bulletUpdate(Ogre::Real time);
 	/*Bullet** getBullet();*/
+	Bullet* mBullet[50];
+	int mBulletNumber;
 protected:
 
 private:
@@ -43,6 +45,7 @@ private:
 	Ogre::Camera* mCamera;
 	Ogre::Root* mRoot;
 
-	Bullet* mBullet[50];
-	int mBulletNumber;
+	bool mBulletIsFull;
+
+	
 };

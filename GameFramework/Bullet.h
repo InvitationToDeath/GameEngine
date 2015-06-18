@@ -22,7 +22,7 @@ public:
 	SceneNode* getPlayerSceneNode();
 	void fireBullet();
 	void playerDie();
-
+	bool getAlive(){ return mAlive;};
 protected:
 
 private:
@@ -41,6 +41,6 @@ private:
 	char mName[15];
 	int mBulletNumber;
 	Vector3 mBulletDirection;
-
+	bool mAlive;
 
 };
