@@ -29,17 +29,17 @@ void Bullet::fire(Vector3 direction,Vector3 position){
 void Bullet::update(Ogre::Real timeSinceLastFrame){
 
 	//ÃÑ¾Ë ¹ß»ç
-	std::cout<<"bullet update()"<<std::endl;
+	//std::cout<<"bullet update()"<<std::endl;
 	
 //	mBulletSceneNode->translate(mBulletDirection.normalisedCopy() * 500 * timeSinceLastFrame, Node::TransformSpace::TS_LOCAL);
-	mBulletSceneNode->translate(Vector3(0,0,-1) * 1000 * timeSinceLastFrame, Node::TransformSpace::TS_LOCAL);
+	mBulletSceneNode->translate(Vector3(0,0,-1) * 3000 * timeSinceLastFrame, Node::TransformSpace::TS_LOCAL);
 	//std::cout<<mBulletSceneNode->getPosition()<<std::endl;
 
 }
 
 void Bullet::setBulletPosition(Vector3 position){
 	
-	mBulletSceneNode->setPosition(position);
+	mBulletSceneNode->setPosition(position+Vector3(0,45,0));
 	mBulletDirection=position;
 	mBulletDirection.z=-mBulletDirection.z;
 }
