@@ -63,13 +63,13 @@ void PlayState::enter(void)
 
 	mTerrain[0] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-230.0f, 730.0f, 0.0f), "crossrail", "crossrail.mesh");
 	//mTerrain[0]->getTerrainSceneNode()->setScale(0.5,0.5,0.5);
-	mTerrain[1] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(100, 0.0f, 0), "bullet", "bullet.mesh");
+	mTerrain[1] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(100, 0.0f, 0), "bullet", "Bullet.mesh");
 	mTerrain[2] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "bricks", "bricks.mesh");
 	mTerrain[3] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "floor", "floor.mesh");
 	mTerrain[4] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Gate", "Gate.mesh");
 	mTerrain[5] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Towers", "Towers.mesh");
 
-	mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 100.0f, 0.f), "Bullet00", "IronBall.mesh");
+	mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 100.0f, 0.f), "Bullet1z", "IronBall.mesh");
 
 
 	/*entity[3] = mSceneMgr->createEntity("crossrail", "crossrail.mesh");
