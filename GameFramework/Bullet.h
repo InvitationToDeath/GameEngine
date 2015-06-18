@@ -23,12 +23,13 @@ public:
 	void fireBullet();
 	void playerDie();
 	bool getAlive(){ return mAlive;};
+
+	Vector3 mBulletPosition;
 protected:
 
 private:
 	int mBulletDamage;
 	int mBulletVelocity;
-	Vector3 mBulletPosition;
 
 	bool mIsFire;
 
