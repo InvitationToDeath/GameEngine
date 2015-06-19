@@ -17,7 +17,7 @@
 #include <Ogre.h>
 #include <OIS/OIS.h>
 
-#define DEMONNUMBER 3
+#define DEMONNUMBER 10
 #define RADIAN(angle) angle * 3.14/180
 
 enum PlayerDirection{ LEFT, RIGHT, UP, DOWN };
@@ -120,7 +120,7 @@ private:
 
 	//클래스용 추가
 	Player* mPlayer;
-	Demon* mDemon;
+	
 	Boss* mBoss;
 	Skull* mSkull;
 	Terrain* mTerrain[10];
@@ -138,6 +138,10 @@ private:
 	char mFireName[15];
 	SceneNode* mfireNode[50];
 
+
+	//Demon
+	Demon* mDemon[DEMONNUMBER];
+	int mDemonNumber;
 };
 
 
