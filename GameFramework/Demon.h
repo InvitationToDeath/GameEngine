@@ -15,6 +15,7 @@ class Demon
 {
 public:
 	Demon();
+	Demon(int number);
 	~Demon();
 	void update(Ogre::Real timeSinceLastFrame);
 	bool collisionCheck(Vector3 bulletVector);//Bullet* bullet[]);
@@ -36,7 +37,7 @@ private:
 	Ogre::Root *mRoot;
 
 	char mName[15];
-	int mDemonNumber;
+	
 
 	Quaternion prevQuat;
 	Quaternion quat;

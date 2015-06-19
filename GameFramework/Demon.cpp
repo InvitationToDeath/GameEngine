@@ -2,15 +2,15 @@
 
 using namespace std;
 
-Demon::Demon()
+Demon::Demon(int number)
 {
-	mDemonNumber=0;
+	
 	mRoot = Root::getSingletonPtr(); 
 	mSceneMgr = mRoot->getSceneManager("main");
 	demonVelocity=300.0f;
 
 
-	sprintf(mName, "Demon%d", mDemonNumber);
+	sprintf(mName, "Demon%d", number);
 	mDemonEntity=mSceneMgr->createEntity(mName, "Demon.mesh");
 	mDemonNode=mSceneMgr->getRootSceneNode()->createChildSceneNode(mName,Vector3(Vector3::ZERO));
 	mDemonNode->attachObject(mDemonEntity);

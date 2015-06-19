@@ -24,7 +24,7 @@ void PlayState::enter(void)
 	mCamera->setPosition(Ogre::Vector3::ZERO);
 	//mCamera->setFOVy(Degree(30));
 	//mCamera->setFarClipDistance(100.0f);
-
+	mDemonNumber=0;
 
 	isBossSpawn = false;
 
@@ -32,9 +32,14 @@ void PlayState::enter(void)
 	mCameraWheelValue = 0;
 
 	mPlayer = new Player;
-	mDemon = new Demon;
-	//mBoss = new Boss;
+
 	mSkull = new Skull;
+
+	for (int i = 0; i < DEMONNUMBER; ++i,++mDemonNumber)
+	{
+		mDemon[i] = new Demon(mDemonNumber);
+		
+	}
 
 	for(int i = 0; i < mPlayer->mBulletNumber; ++i)
 		mPlayer->mBullet[i]->setAlive(false);
@@ -194,9 +199,13 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	//}
 
 	mPlayer->bulletUpdate(evt.timeSinceLastFrame);
-	mDemon->trace(mPlayer->getPlayerSceneNode());
-	mDemon->update(evt.timeSinceLastFrame);
 
+	for (int i = 0; i < DEMONNUMBER; i++)
+	{
+		mDemon[i]->trace(mPlayer->getPlayerSceneNode());
+		mDemon[i]->update(evt.timeSinceLastFrame);
+	}
+	
 
 	if(10 <= mPlayer->getHP() && isBossSpawn == false)
 	{
@@ -207,6 +216,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	{
 		mBoss->update(evt.timeSinceLastFrame);
 	}
+
 
 	mSkull->update(evt.timeSinceLastFrame);
 	mSkull->trace(mPlayer->getPlayerSceneNode());
@@ -224,7 +234,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	{
 		if(mPlayer->mBullet[i]->getAlive() == true) //이미 충돌된 총알이 아닐 때만 충돌 체크
 		{
-			if(mDemon->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))//만약 충돌하면 총알의 isAlive false처리.
+			if(mDemon[i]->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))//만약 충돌하면 총알의 isAlive false처리.
 			{
 				mPlayer->mBullet[i];
 				mPlayer->mBullet[i]->setAlive(false);
@@ -233,7 +243,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 				mPlayer->setHP(10);
 				//충돌 애니메이션 실행
 				//mDemon->getHurt(evt.timeSinceLastFrame);
-				mDemon->setDemonState(hurt);
+				mDemon[i]->setDemonState(hurt);
 			}
 			if(mSkull->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))
 			{
@@ -520,6 +530,7 @@ void PlayState::_drawGridPlane(void)
 void PlayState::_createParticleSystem(void)
 {
 
+<<<<<<< HEAD
 	// fill here
 	mSunNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Sun",Ogre::Vector3(0,500,0));
 	//mJetEngineNode = mSceneMgr->getSceneNode("ProfessorRoot")->createChildSceneNode("JetEngine");
@@ -528,6 +539,8 @@ void PlayState::_createParticleSystem(void)
 	//pSys = mSceneMgr->createParticleSystem("JetEngineParticle", "Particle/JetEngine");
 	//mJetEngineNode->attachObject(pSys);
 
+=======
+>>>>>>> origin/master
 	//pSys = mSceneMgr->createParticleSystem("SunSystem", "Particle/Smoke");
 	for (int i = 0; i < 50; i++)
 	{
