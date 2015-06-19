@@ -47,6 +47,7 @@ void PlayState::enter(void)
 	_drawGridPlane();
 	_setLights();
 	_drawGroundPlane();
+	_createParticleSystem();
 
 	mInformationOverlay = OverlayManager::getSingleton().getByName("Overlay/Information");
 	mInformationOverlay->show();
@@ -491,3 +492,15 @@ void PlayState::_drawGridPlane(void)
 
 	gridPlaneNode->attachObject(gridPlane);
 }
+
+
+void PlayState::_createParticleSystem(void)
+	{
+		// fill here
+		mSunNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Sun",Ogre::Vector3(0,500,0));
+		//mJetEngineNode = mSceneMgr->getSceneNode("ProfessorRoot")->createChildSceneNode("JetEngine");
+		pSys = mSceneMgr->createParticleSystem("SunSystem", "Particle/Smoke");
+		mSunNode->attachObject(pSys);
+		//pSys = mSceneMgr->createParticleSystem("JetEngineParticle", "Particle/JetEngine");
+		//mJetEngineNode->attachObject(pSys);
+	}

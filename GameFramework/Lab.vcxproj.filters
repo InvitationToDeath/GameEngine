@@ -95,4 +95,9 @@
       <Filter>리소스 파일</Filter>
     </CustomBuild>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Fire.particle">
+      <Filter>리소스 파일</Filter>
+    </None>
+  </ItemGroup>
 </Project>

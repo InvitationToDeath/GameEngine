@@ -45,6 +45,8 @@ public:
 
 	static PlayState* getInstance() { return &mPlayState; }
 
+	void _createParticleSystem(void);
+
 private:
 
 	void _setLights(void);
@@ -127,6 +129,9 @@ private:
 	//0607 Ä«¸Þ¶ó
 	float mCameraWheelValue;
 	
+	//paticle system
+	ParticleSystem* pSys;
+	Ogre::SceneNode* mSunNode;
 };
 
 
