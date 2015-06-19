@@ -108,15 +108,11 @@ void PlayState::enter(void)
 	demonVelocity = 150.0f;
 	bulletNumber = 0;
 	speed = 500;
-<<<<<<< HEAD
 
-
-=======
 	
 	// Sound
 	soundInit();
 	FMOD_System_PlaySound(g_System,FMOD_CHANNEL_FREE,g_Sound[SD_Opening],0,&g_Channel[SD_Opening]);
->>>>>>> origin/master
 }
 
 void PlayState::exit(void)
