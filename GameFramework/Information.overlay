@@ -30,38 +30,26 @@ Overlay/Information
         {
             metrics_mode pixels
             left 5
-            top 25
+            top 30
             width 90
             height 30
             font_name Font/NanumBold18
-            char_height 18
+            char_height 20
             caption AVERAGE FPS:
             colour_top 0.7 0.7 0.7
             colour_bottom 0.7 0.7 0.7
         }
-        element TextArea(WorstFps)
-        {
-            metrics_mode pixels
-            left 5
-            top 40
-            width 90
-            height 30
-            font_name Font/NanumBold18
-            char_height 18
-            caption WORST FPS:
-            colour_top 0.7 0.7 0.7
-            colour_bottom 0.7 0.7 0.7
-        }
+        
         element TextArea(BestFps)
         {
             metrics_mode pixels
             left 5
-            top 55
+            top 52
             width 90
             height 30
             font_name Font/NanumBold18
-            char_height 18
-            caption BEST FPS:
+            char_height 20
+            caption BOSS HP:
             colour_top 0.7 0.7 0.7
             colour_bottom 0.7 0.7 0.7
         }

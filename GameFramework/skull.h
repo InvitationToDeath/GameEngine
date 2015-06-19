@@ -43,6 +43,7 @@ private:
 	float sinAngle;
 	float moveAngle;
 	bool mAlive;
+	int mSkullHP;
 	
 	float time;
 	Vector3 mAxis;

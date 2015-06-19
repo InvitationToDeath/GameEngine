@@ -26,12 +26,19 @@ void PlayState::enter(void)
 	//mCamera->setFarClipDistance(100.0f);
 	mDemonNumber=0;
 
+	isBossSpawn = false;
+
 	//0607
 	mCameraWheelValue = 0;
 
 	mPlayer = new Player;
+<<<<<<< HEAD
 	
 	mBoss = new Boss;
+=======
+	mDemon = new Demon;
+	//mBoss = new Boss;
+>>>>>>> origin/master
 	mSkull = new Skull;
 
 	for (int i = 0; i < DEMONNUMBER; ++i,++mDemonNumber)
@@ -74,7 +81,7 @@ void PlayState::enter(void)
 
 	mTerrain[0] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-450.0f, 730.0f, 0.0f), "crossrail", "crossrail.mesh");
 	mTerrain[0]->getTerrainSceneNode()->setScale(2.0f,1.0f,2.0f);
-	
+
 	mTerrain[1] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(100, 0.0f, 0), "bullet", "Bullet.mesh");
 	mTerrain[2] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "bricks", "bricks.mesh");
 	//mTerrain[2]->getTerrainSceneNode()->yaw(Degree(180));
@@ -198,12 +205,28 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	//}
 
 	mPlayer->bulletUpdate(evt.timeSinceLastFrame);
+<<<<<<< HEAD
 	for (int i = 0; i < DEMONNUMBER; i++)
 	{
 		mDemon[i]->trace(mPlayer->getPlayerSceneNode());
 		mDemon[i]->update(evt.timeSinceLastFrame);
 	}
 	mBoss->update(evt.timeSinceLastFrame);
+=======
+	mDemon->trace(mPlayer->getPlayerSceneNode());
+	mDemon->update(evt.timeSinceLastFrame);
+
+
+	if(100 <= mPlayer->getHP() && isBossSpawn == false)
+	{
+		mBoss = new Boss;
+		isBossSpawn = true;
+	}
+	if(isBossSpawn == true)
+	{
+		mBoss->update(evt.timeSinceLastFrame);
+	}
+>>>>>>> origin/master
 
 	mSkull->update(evt.timeSinceLastFrame);
 	mSkull->trace(mPlayer->getPlayerSceneNode());
@@ -226,6 +249,8 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 				mPlayer->mBullet[i];
 				mPlayer->mBullet[i]->setAlive(false);
 
+				//점수획득
+				mPlayer->setHP(10);
 				//충돌 애니메이션 실행
 				//mDemon->getHurt(evt.timeSinceLastFrame);
 				mDemon[i]->setDemonState(hurt);
@@ -234,11 +259,19 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 			{
 				mPlayer->mBullet[i];
 				mPlayer->mBullet[i]->setAlive(false);
+
+				mPlayer->setHP(10);
 			}
-			if(true == mBoss->getAlive() && mBoss->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))
+			if(isBossSpawn==true)
 			{
-				mPlayer->mBullet[i];
-				mPlayer->mBullet[i]->setAlive(false);
+				if(true == mBoss->getAlive() && mBoss->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))
+				{
+					mPlayer->mBullet[i];
+					mPlayer->mBullet[i]->setAlive(false);
+
+					mPlayer->setHP(10);
+					mBoss->getHurt(mPlayer->getMissilePower());
+				}
 			}
 		}
 	}
@@ -251,21 +284,22 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 bool PlayState::frameEnded(GameManager* game, const FrameEvent& evt)
 {
 	static Ogre::DisplayString currFps = L"현재 FPS: ";
-	static Ogre::DisplayString avgFps = L"평균 FPS: ";
-	static Ogre::DisplayString bestFps = L"최고 FPS: ";
-	static Ogre::DisplayString worstFps = L"최저 FPS: ";
+	static Ogre::DisplayString avgFps = L"현재 점수: ";
+	static Ogre::DisplayString bestFps = L"BOSS HP: ";
+	//static Ogre::DisplayString worstFps = L"최저 FPS: ";
 
 	OverlayElement* guiAvg = OverlayManager::getSingleton().getOverlayElement("AverageFps");
 	OverlayElement* guiCurr = OverlayManager::getSingleton().getOverlayElement("CurrFps");
 	OverlayElement* guiBest = OverlayManager::getSingleton().getOverlayElement("BestFps");
-	OverlayElement* guiWorst = OverlayManager::getSingleton().getOverlayElement("WorstFps");
+	//OverlayElement* guiWorst = OverlayManager::getSingleton().getOverlayElement("WorstFps");
 
 	const RenderTarget::FrameStats& stats = mRoot->getAutoCreatedWindow()->getStatistics();
 
-	guiAvg->setCaption(avgFps + StringConverter::toString(stats.avgFPS));
-	guiCurr->setCaption(currFps + StringConverter::toString(stats.lastFPS));
-	guiBest->setCaption(bestFps + StringConverter::toString(stats.bestFPS));
-	guiWorst->setCaption(worstFps + StringConverter::toString(stats.worstFPS)); 
+	guiCurr->setCaption(currFps + StringConverter::toString(stats.avgFPS));
+	guiAvg->setCaption(avgFps + StringConverter::toString(mPlayer->getHP()));
+	if(isBossSpawn)
+		guiBest->setCaption(bestFps + StringConverter::toString(mBoss->getBossHP()));
+	//guiWorst->setCaption(worstFps + StringConverter::toString(stats.worstFPS)); 
 	//추가
 
 	//mKeyboard->capture()
@@ -505,6 +539,15 @@ void PlayState::_drawGridPlane(void)
 
 void PlayState::_createParticleSystem(void)
 {
+<<<<<<< HEAD
+	// fill here
+	mSunNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Sun",Ogre::Vector3(0,500,0));
+	//mJetEngineNode = mSceneMgr->getSceneNode("ProfessorRoot")->createChildSceneNode("JetEngine");
+	pSys = mSceneMgr->createParticleSystem("SunSystem", "Particle/Smoke");
+	mSunNode->attachObject(pSys);
+	//pSys = mSceneMgr->createParticleSystem("JetEngineParticle", "Particle/JetEngine");
+	//mJetEngineNode->attachObject(pSys);
+=======
 	//pSys = mSceneMgr->createParticleSystem("SunSystem", "Particle/Smoke");
 	for (int i = 0; i < 50; i++)
 	{
@@ -514,4 +557,5 @@ void PlayState::_createParticleSystem(void)
 		mfireNode[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(mFireName,Ogre::Vector3(i*80-2000,0,-2000));
 		mfireNode[i]->attachObject(pSys);
 	}
+>>>>>>> origin/master
 }

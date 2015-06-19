@@ -26,6 +26,7 @@ Skull::Skull()
 	randomNumber=rand()%4;
 	
 	mAlive=true;
+	mSkullHP = 20;
 }
 
 void Skull::update(Ogre::Real timeSinceLastFrame)

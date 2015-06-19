@@ -28,6 +28,8 @@ Demon::Demon(int number)
 	mAlive=true;
 	mAnimationTimer = 0;
 
+	mDemonHP = 30;
+
 }
 
 void Demon::update(Ogre::Real timeSinceLastFrame)
