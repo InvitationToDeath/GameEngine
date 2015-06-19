@@ -53,8 +53,8 @@ void Demon::update(Ogre::Real timeSinceLastFrame)
 
 		if(mDistance>=200){
 
-			mDemonNode->translate( mDirection * move *  sin((sinAngle *(PI / 180))) * (timeSinceLastFrame/3));
-			mDemonNode->translate( mAxis * move *  sin((sinAngle *(PI / 180))) * (timeSinceLastFrame/3));
+			mDemonNode->translate( mDirection * move *  sin((sinAngle *(PI / 180))) * (timeSinceLastFrame*3));
+			mDemonNode->translate( mAxis * move *  sin((sinAngle *(PI / 180))) * (timeSinceLastFrame*3));
 
 			if(moveAngle>0)
 				moveAngle-=1;
@@ -98,6 +98,15 @@ void Demon::update(Ogre::Real timeSinceLastFrame)
 			mDemonState = idle;
 			mAnimationTimer = 0;
 		}
+	}
+
+	if(die == mDemonState)
+	{
+		mDemonAnimationState->setEnabled(false);
+		mDemonAnimationState->setLoop(false);
+		mDemonAnimationState = mDemonEntity->getAnimationState("DemonDead");
+		mDemonAnimationState->setLoop(false);
+		mDemonAnimationState->setEnabled(true);
 	}
 
 
@@ -147,32 +156,15 @@ void Demon::setAlive(bool isAlive)
 	mAlive = isAlive;
 }
 
-void Demon::getHurt(Ogre::Real timeSinceLastFrame)
+void Demon::setHP(int damage)
 {
-	string prevAnimationName = mDemonAnimationState->getAnimationName();
-	float timer = 0;
+	mDemonHP -= damage;
 
-	mDemonAnimationState->setEnabled(false);
-	mDemonAnimationState->setLoop(false);
-	mDemonAnimationState = mDemonEntity->getAnimationState("DemonDameged");
-	mDemonAnimationState->setLoop(false);
-	mDemonAnimationState->setEnabled(true);
-
-	while(timer <= mDemonEntity->getAnimationState("DemonDameged")->getLength())
+	if(mDemonHP <= 0)
 	{
-		timer += timeSinceLastFrame;
-		//mDemonAnimationState->addTime(timeSinceLastFrame);
+		mAlive = false;
+		mDemonState = die;
 	}
-
-	if(mDemonEntity->getAnimationState("DemonDameged")->getLength() < timer )
-	{
-		mDemonAnimationState->setEnabled(false);
-		mDemonAnimationState->setLoop(false);
-		mDemonAnimationState = mDemonEntity->getAnimationState(prevAnimationName);
-		mDemonAnimationState->setLoop(true);
-		mDemonAnimationState->setEnabled(true);
-	}
-
 }
 
 void Demon::setDemonState(demonState state)

@@ -78,15 +78,22 @@ void PlayState::enter(void)
 
 	mTerrain[1] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(100, 0.0f, 0), "bullet", "Bullet.mesh");
 	mTerrain[2] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "bricks", "bricks.mesh");
-	//mTerrain[2]->getTerrainSceneNode()->yaw(Degree(180));
+	mTerrain[2]->getTerrainSceneNode()->yaw(Degree(180));
 	mTerrain[3] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "floor", "floor.mesh");
 	mTerrain[4] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Gate", "Gate.mesh");
-	//mTerrain[4]->getTerrainSceneNode()->yaw(Degree(180));
+	mTerrain[4]->getTerrainSceneNode()->yaw(Degree(180));
 	mTerrain[5] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Towers", "Towers.mesh");
 
-	mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 0.0f, 0.0f), "SkyBox", "skybox2.mesh");
-	mTerrain[6]->getTerrainSceneNode()->setScale(100.f,100.f,100.f);
+	mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 200.0f, 0.0f), "SkyBox", "skybox2.mesh");
+	mTerrain[6]->getTerrainSceneNode()->setScale(1000.f,1000.f,1000.f);
+	mTerrain[6]->getTerrainSceneNode()->yaw(Degree(180));
 
+	mTerrain[7] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-950.f, 0.0f, 0.0f), "ItemBox1", "WoodenBox.mesh");
+	mTerrain[8] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(950.f, 0.0f, 0.0f), "ItemBox2", "TresureBox.mesh");
+	mTerrain[9] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 0.0f, -950.0f), "ItemBox3", "WoodenBox.mesh");
+	mTerrain[9]->getTerrainSceneNode()->yaw(Degree(90));
+	mTerrain[10] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 0.0f, 950.0f), "ItemBox4", "TresureBox.mesh");
+	mTerrain[10]->getTerrainSceneNode()->yaw(Degree(90));
 
 	/*mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-150.f, 1600.0f, -2800.f), "Bullet1z", "Skull.mesh");
 	mTerrain[7] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(150.f, 2300.0f, -2800.f), "Bullet1zx", "Skull.mesh");*/
@@ -247,6 +254,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 					//충돌 애니메이션 실행
 					//mDemon->getHurt(evt.timeSinceLastFrame);
 					mDemon[j]->setDemonState(hurt);
+					mDemon[j]->setHP(mPlayer->getMissilePower());
 				}
 			}
 			//해골
@@ -481,7 +489,7 @@ void PlayState::_setLights(void)
 	mLightS->setDirection(Ogre::Vector3::NEGATIVE_UNIT_Y);
 	mLightS->setPosition( Vector3( 250, 900, 250) );
 	mLightS->setSpotlightRange( Degree(10), Degree(80));
-	mLightS->setVisible(false);
+	mLightS->setVisible(true);
 
 	mSceneMgr->setShadowTechnique(SHADOWTYPE_STENCIL_ADDITIVE);
 }

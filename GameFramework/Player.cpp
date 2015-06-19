@@ -87,12 +87,12 @@ void Player::fireBullet(Vector3 position,Quaternion direction)
 {
 	if(mBulletIsFull!=true)
 		mBullet[mBulletNumber]= new Bullet(mBulletNumber); mBullet[mBulletNumber]->setAlive(true);
-	std::cout<<"fire1"<<std::endl;
+	//std::cout<<"fire1"<<std::endl;
 	
 	mBullet[mBulletNumber]->setBulletPosition(position);
-	std::cout<<"fire2"<<std::endl;
+	//std::cout<<"fire2"<<std::endl;
 	mBullet[mBulletNumber]->setBulletQuternion(direction);
-	std::cout<<"fire3"<<std::endl;
+	std::cout<<"대포 발사."<<std::endl;
 	
 	if(mBulletNumber==49)
 		mBulletIsFull=true;
@@ -130,7 +130,7 @@ void Player::bulletUpdate(Ogre::Real time){
 void Player::runOutStart(){
 	mSinAngle=90;
 	mRunout=true;
-	mRunoutDegree=800;
+	mRunoutDegree=500;
 
 }
 ////-------------------------------------------

@@ -123,7 +123,7 @@ private:
 	
 	Boss* mBoss;
 	Skull* mSkull;
-	Terrain* mTerrain[10];
+	Terrain* mTerrain[20];
 	PlayerDirection mPlayerDirection;
 
 	//0607 Ä«¸Þ¶ó

@@ -24,7 +24,7 @@ public:
 	}
 	void trace(SceneNode* destNode);
 	bool getAlive(); void setAlive(bool isAlive);
-	void getHurt(Ogre::Real timeSinceLastFrame);
+	void setHP(int damage);
 	void setDemonState(demonState state); demonState getDemonState();
 
 protected:
