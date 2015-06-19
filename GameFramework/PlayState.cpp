@@ -32,13 +32,7 @@ void PlayState::enter(void)
 	mCameraWheelValue = 0;
 
 	mPlayer = new Player;
-<<<<<<< HEAD
-	
-	mBoss = new Boss;
-=======
-	mDemon = new Demon;
-	//mBoss = new Boss;
->>>>>>> origin/master
+
 	mSkull = new Skull;
 
 	for (int i = 0; i < DEMONNUMBER; ++i,++mDemonNumber)
@@ -205,17 +199,13 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	//}
 
 	mPlayer->bulletUpdate(evt.timeSinceLastFrame);
-<<<<<<< HEAD
+
 	for (int i = 0; i < DEMONNUMBER; i++)
 	{
 		mDemon[i]->trace(mPlayer->getPlayerSceneNode());
 		mDemon[i]->update(evt.timeSinceLastFrame);
 	}
-	mBoss->update(evt.timeSinceLastFrame);
-=======
-	mDemon->trace(mPlayer->getPlayerSceneNode());
-	mDemon->update(evt.timeSinceLastFrame);
-
+	
 
 	if(100 <= mPlayer->getHP() && isBossSpawn == false)
 	{
@@ -226,7 +216,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	{
 		mBoss->update(evt.timeSinceLastFrame);
 	}
->>>>>>> origin/master
+
 
 	mSkull->update(evt.timeSinceLastFrame);
 	mSkull->trace(mPlayer->getPlayerSceneNode());
@@ -539,15 +529,7 @@ void PlayState::_drawGridPlane(void)
 
 void PlayState::_createParticleSystem(void)
 {
-<<<<<<< HEAD
-	// fill here
-	mSunNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Sun",Ogre::Vector3(0,500,0));
-	//mJetEngineNode = mSceneMgr->getSceneNode("ProfessorRoot")->createChildSceneNode("JetEngine");
-	pSys = mSceneMgr->createParticleSystem("SunSystem", "Particle/Smoke");
-	mSunNode->attachObject(pSys);
-	//pSys = mSceneMgr->createParticleSystem("JetEngineParticle", "Particle/JetEngine");
-	//mJetEngineNode->attachObject(pSys);
-=======
+
 	//pSys = mSceneMgr->createParticleSystem("SunSystem", "Particle/Smoke");
 	for (int i = 0; i < 50; i++)
 	{
@@ -557,5 +539,5 @@ void PlayState::_createParticleSystem(void)
 		mfireNode[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(mFireName,Ogre::Vector3(i*80-2000,0,-2000));
 		mfireNode[i]->attachObject(pSys);
 	}
->>>>>>> origin/master
+
 }
