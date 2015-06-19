@@ -101,7 +101,9 @@ void PlayState::enter(void)
 	bulletNumber = 0;
 	speed = 500;
 	
-
+	// Sound
+	soundInit();
+	FMOD_System_PlaySound(g_System,FMOD_CHANNEL_FREE,g_Sound[SD_Opening],0,&g_Channel[SD_Opening]);
 }
 
 void PlayState::exit(void)
@@ -387,9 +389,14 @@ bool PlayState::mousePressed(GameManager* game, const OIS::MouseEvent &e, OIS::M
 
 		//if (bulletNumber >= 50)
 		//	bulletNumber = 0;
-
+		
 		mPlayer->fireBullet(mCamera->getPosition(),mCamera->getOrientation());
 		mPlayer->runOutStart();
+
+		//FMOD_Channel_IsPlaying(g_Channel[SD_Stage1],&mIsPlaying);
+		//if(!mIsPlaying)
+			FMOD_System_PlaySound(g_System,FMOD_CHANNEL_FREE,g_Sound[SD_Stage1],0,&g_Channel[SD_Stage1]);
+
 	}
 
 
@@ -519,4 +526,39 @@ void PlayState::_createParticleSystem(void)
 		mfireNode[i]->attachObject(pSys);
 	}
 
+}
+
+
+void PlayState::soundInit()/*
+						   그냥 내가 만든 함수이니까 너네 마음대로 바꿔서 쓰면됨
+						   배경음은 CreateStream 으로 하는게 메모리를 덜 잡아먹는데 참고하시길.
+						   우리는 Sound파일을 다 SD_Opening.mp3 이런식으로 이름 다바꿔서 Sound폴더에서 관리해. 절대경로로. 그래서 저렇게 불러오면됨
+						   */
+{
+	FMOD_System_Create(&g_System);
+	FMOD_System_Init(g_System,10,FMOD_INIT_NORMAL,NULL);
+
+
+	//배경음
+	FMOD_System_CreateStream(g_System,"Sound/SD_Opening.mp3",FMOD_LOOP_NORMAL,0,&g_Sound[SD_Opening]);
+
+	// 형식은 :                g_system에, 경로, 재생 방식(계속 음악끝나면 반복), 사운드 설정 해주고
+
+	//효과음 
+
+	FMOD_System_CreateSound(g_System,"Sound/SD_Stage1.wav",FMOD_DEFAULT,0,&g_Sound[SD_Stage1]);
+
+}
+
+
+void PlayState::Release() //마지막으로 음악 다 재생 되면 이런식으로 릴리즈해줘야 해.
+{
+	for(int i = 0; i < SD_Stage1; ++i)
+	{
+		FMOD_Sound_Release(g_Sound[i]);
+	}
+	/*FMOD_Sound_Release(g_Sound[0]);
+	FMOD_Sound_Release(g_Sound[1]);*/
+	FMOD_System_Close(g_System);
+	FMOD_System_Release(g_System);
 }

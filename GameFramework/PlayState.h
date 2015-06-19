@@ -20,6 +20,40 @@
 #define DEMONNUMBER 3
 #define RADIAN(angle) angle * 3.14/180
 
+
+//--------------------------------Sound Fmod
+
+#include "inc/fmod.hpp" 
+#pragma comment (lib, "fmodex_vc.lib")  
+
+
+using namespace FMOD;
+enum SOUONDKIND{ 
+	SD_Opening, 
+	SD_Stage1, 
+	SD_Stage2,
+	SD_Stage3,
+	SD_Stage4,
+	SD_Stage5,
+	SD_Effect1,
+	SD_Button,
+	SD_Jump,
+	SD_Stage1Boss,
+	SD_Stage2Boss,
+	SD_Stage3Boss,
+	SD_Stage4Boss,
+	SD_Stage5Boss,
+	SD_Effect,
+	SD_Death,
+	SD_End //17번
+};
+
+#define RADIAN(angle) angle * 3.14/180
+
+//--------------------------------Sound Fmod
+
+
+
 enum PlayerDirection{ LEFT, RIGHT, UP, DOWN };
 
 using namespace Ogre;
@@ -46,6 +80,9 @@ public:
 	static PlayState* getInstance() { return &mPlayState; }
 
 	void _createParticleSystem(void);
+
+	void soundInit();
+	void Release();
 
 private:
 
@@ -147,6 +184,11 @@ private:
 	Demon* mDemon[DEMONNUMBER];
 	int mDemonNumber;
 
+		// 사운드  전역변수 3개를 선언해
+	FMOD_SYSTEM *g_System; //사운드 시스템 생성 하는 부분이고
+	FMOD_SOUND *g_Sound[SD_End]; //사운드 설정하는부분
+	FMOD_CHANNEL *g_Channel[SD_End]; //채널 설정하는부분이고
+	FMOD_BOOL mIsPlaying;
 };
 
 
