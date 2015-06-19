@@ -13,11 +13,12 @@ Boss::Boss()
 	mBossSceneNode->attachObject(mBossEntity);
 	mBossSceneNode->scale(0.3f,0.3f,0.3f);
 
-	mBossAnimationState = mBossEntity->getAnimationState("BossIdle");
+	mBossAnimationState = mBossEntity->getAnimationState("BossSpawn");
 	mBossAnimationState->setLoop(true);
 	mBossAnimationState->setEnabled(true);
 	
 	mAlive=true;
+	mBossHP = 250;
 }
 //---------------------------------
 Boss::~Boss()
@@ -64,4 +65,17 @@ bool Boss::getAlive()
 void Boss::setAlive(bool isAlive)
 {
 	mAlive = isAlive;
+}
+
+void Boss::getHurt(int damage)
+{
+	mBossHP -= damage;
+	
+	//if(mBossHP < 0) //사망 로직 추가 전.
+	
+}
+
+int Boss::getBossHP()
+{
+	return mBossHP;
 }

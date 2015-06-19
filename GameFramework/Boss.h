@@ -17,6 +17,7 @@ public:
 	void setPosition(Vector3 position);
 	//void trace(SceneNode* destNode);
 	bool getAlive(); void setAlive(bool isAlive);
+	void getHurt(int damage); int getBossHP();
 private:
 	Ogre::SceneManager* mSceneMgr;
 	SceneNode* mBossSceneNode;
@@ -37,6 +38,8 @@ private:
 	float sinAngle;
 	float moveAngle;
 	bool mAlive;
+
+	int mBossHP;
 	
 	float time;
 	Vector3 mAxis;

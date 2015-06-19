@@ -55,6 +55,7 @@ private:
 	float mAnimationTimer;
 	Vector3 mAxis;
 	int randomNumber;
+	int mDemonHP;
 
 	demonState mDemonState;
 };

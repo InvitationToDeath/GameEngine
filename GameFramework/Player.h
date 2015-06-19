@@ -22,6 +22,7 @@ public:
 	void fireBullet(Vector3 direction,Quaternion position);
 	void playerDie();
 	void bulletUpdate(Ogre::Real time);
+	int getMissilePower(){return mPlayerMissilePower;};
 	/*Bullet** getBullet();*/
 	Bullet* mBullet[50];
 	int mBulletNumber;
@@ -35,6 +36,7 @@ protected:
 private:
 	int mPlayerHP, mMaxPlayerHP;
 	int mPlayerVelocity;
+	int mPlayerMissilePower;
 	Vector3 mPlayerPosition;
 
 	bool mIsPlayerDie;

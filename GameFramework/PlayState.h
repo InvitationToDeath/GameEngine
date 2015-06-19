@@ -132,6 +132,8 @@ private:
 	//paticle system
 	ParticleSystem* pSys;
 	Ogre::SceneNode* mSunNode;
+
+	bool isBossSpawn;
 };
 
 

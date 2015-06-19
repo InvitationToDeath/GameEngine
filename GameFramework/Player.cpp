@@ -29,6 +29,9 @@ Player::Player()
 	mBulletNumber=0;
 	mBulletIsFull=false;
 
+	mPlayerHP = 0;
+	mPlayerMissilePower = 10;
+
 }
 
 //-------------------------------------------
@@ -38,15 +41,15 @@ void Player::createPlayer()
 }
 
 //-------------------------------------------
-void setHP(int hp)
+void Player::setHP(int hp)
 {
-
+	mPlayerHP += hp;
 }
 
 //-------------------------------------------
 int Player::getHP()
 {
-	return 0;
+	return mPlayerHP;
 }
 
 //-------------------------------------------
