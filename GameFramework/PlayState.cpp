@@ -94,13 +94,21 @@ void PlayState::enter(void)
 	mTerrain[8] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(950.f, 0.0f, 0.0f), "ItemBox2", "TresureBox.mesh");
 	mTerrain[9] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 0.0f, 950.0f), "ItemBox4", "TresureBox.mesh");
 	mTerrain[9]->getTerrainSceneNode()->yaw(Degree(90));
-	
+
+	mTerrain[10] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -50.0f, 0.0f), "AngelStatue", "AngelStatue.mesh");
+	mTerrain[11] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Fence", "Fence.mesh");
+	mTerrain[12] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Colums", "Colums.mesh");
+	mTerrain[13] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(700.f, -100.0f, -800.f), "Cart", "Cart.mesh");
+	mTerrain[14] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(150.f, -100.0f, 300.f), "Box", "Box.mesh");
+	mTerrain[15] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -95.0f, 0.f), "Lava", "Lava.mesh");
+
+
 
 	dest = Vector3::ZERO;
 	demonVelocity = 150.0f;
 	bulletNumber = 0;
 	speed = 500;
-	
+
 
 }
 
@@ -161,7 +169,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	}
 
 
-	if(10 <= mPlayer->getHP() && isBossSpawn == false)
+	if(50 <= mPlayer->getHP() && isBossSpawn == false)
 	{
 		mBoss = new Boss;
 		isBossSpawn = true;
@@ -468,9 +476,9 @@ void PlayState::_drawGroundPlane(void)
 void PlayState::_drawGridPlane(void)
 {
 	// ÁÂÇ¥Ãà Ç¥½Ã
-	Ogre::Entity* mAxesEntity = mSceneMgr->createEntity("Axes", "axes.mesh");
-	mSceneMgr->getRootSceneNode()->createChildSceneNode("AxesNode", Ogre::Vector3(0, 0, 0))->attachObject(mAxesEntity);
-	mSceneMgr->getSceneNode("AxesNode")->setScale(5, 5, 5);
+	//Ogre::Entity* mAxesEntity = mSceneMgr->createEntity("Axes", "axes.mesh");
+	//mSceneMgr->getRootSceneNode()->createChildSceneNode("AxesNode", Ogre::Vector3(0, 0, 0))->attachObject(mAxesEntity);
+	//mSceneMgr->getSceneNode("AxesNode")->setScale(5, 5, 5);
 
 	Ogre::ManualObject* gridPlane = mSceneMgr->createManualObject("GridPlane");
 	Ogre::SceneNode* gridPlaneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("GridPlaneNode");
@@ -494,7 +502,7 @@ void PlayState::_drawGridPlane(void)
 
 	gridPlane->end();
 
-	gridPlaneNode->attachObject(gridPlane);
+	//gridPlaneNode->attachObject(gridPlane);
 }
 
 
