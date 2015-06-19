@@ -53,8 +53,8 @@ void Demon::update(Ogre::Real timeSinceLastFrame)
 
 		if(mDistance>=200){
 
-			mDemonNode->translate( mDirection * move *  sin((sinAngle *(PI / 180))));
-			mDemonNode->translate( mAxis * move *  sin((sinAngle *(PI / 180))));
+			mDemonNode->translate( mDirection * move *  sin((sinAngle *(PI / 180))) * (timeSinceLastFrame/3));
+			mDemonNode->translate( mAxis * move *  sin((sinAngle *(PI / 180))) * (timeSinceLastFrame/3));
 
 			if(moveAngle>0)
 				moveAngle-=1;
@@ -109,7 +109,7 @@ bool Demon::collisionCheck(Vector3 bulletVector)//Bullet* bullet[])
 {
 	if( (mDemonNode->getPosition().x-50 < bulletVector.x &&	bulletVector.x < mDemonNode->getPosition().x+50) &&
 		(mDemonNode->getPosition().y < bulletVector.y &&	bulletVector.y < mDemonNode->getPosition().y+150)&&
-		(mDemonNode->getPosition().z < bulletVector.z &&	bulletVector.z < mDemonNode->getPosition().z+50))
+		(mDemonNode->getPosition().z < bulletVector.z &&	bulletVector.z < mDemonNode->getPosition().z+100))
 	{
 		cout << "악마 충돌 발생!" << endl;
 		//system("cls");

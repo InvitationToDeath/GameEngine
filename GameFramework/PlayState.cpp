@@ -38,7 +38,7 @@ void PlayState::enter(void)
 	for (int i = 0; i < DEMONNUMBER; ++i,++mDemonNumber)
 	{
 		mDemon[i] = new Demon(mDemonNumber);
-		
+
 	}
 
 	for(int i = 0; i < mPlayer->mBulletNumber; ++i)
@@ -205,7 +205,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 		mDemon[i]->trace(mPlayer->getPlayerSceneNode());
 		mDemon[i]->update(evt.timeSinceLastFrame);
 	}
-	
+
 
 	if(10 <= mPlayer->getHP() && isBossSpawn == false)
 	{
@@ -234,17 +234,22 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	{
 		if(mPlayer->mBullet[i]->getAlive() == true) //이미 충돌된 총알이 아닐 때만 충돌 체크
 		{
-			if(mDemon[i]->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))//만약 충돌하면 총알의 isAlive false처리.
+			//데몬
+			for (int j = 0; j < DEMONNUMBER; ++j)
 			{
-				mPlayer->mBullet[i];
-				mPlayer->mBullet[i]->setAlive(false);
+				if(mDemon[j]->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))//만약 충돌하면 총알의 isAlive false처리.
+				{
+					mPlayer->mBullet[i];
+					mPlayer->mBullet[i]->setAlive(false);
 
-				//점수획득
-				mPlayer->setHP(10);
-				//충돌 애니메이션 실행
-				//mDemon->getHurt(evt.timeSinceLastFrame);
-				mDemon[i]->setDemonState(hurt);
+					//점수획득
+					mPlayer->setHP(10);
+					//충돌 애니메이션 실행
+					//mDemon->getHurt(evt.timeSinceLastFrame);
+					mDemon[j]->setDemonState(hurt);
+				}
 			}
+			//해골
 			if(mSkull->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))
 			{
 				mPlayer->mBullet[i];
@@ -252,6 +257,8 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 
 				mPlayer->setHP(10);
 			}
+
+			//보스
 			if(isBossSpawn==true)
 			{
 				if(true == mBoss->getAlive() && mBoss->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))
@@ -530,7 +537,6 @@ void PlayState::_drawGridPlane(void)
 void PlayState::_createParticleSystem(void)
 {
 
-<<<<<<< HEAD
 	// fill here
 	mSunNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Sun",Ogre::Vector3(0,500,0));
 	//mJetEngineNode = mSceneMgr->getSceneNode("ProfessorRoot")->createChildSceneNode("JetEngine");
@@ -539,8 +545,6 @@ void PlayState::_createParticleSystem(void)
 	//pSys = mSceneMgr->createParticleSystem("JetEngineParticle", "Particle/JetEngine");
 	//mJetEngineNode->attachObject(pSys);
 
-=======
->>>>>>> origin/master
 	//pSys = mSceneMgr->createParticleSystem("SunSystem", "Particle/Smoke");
 	for (int i = 0; i < 50; i++)
 	{

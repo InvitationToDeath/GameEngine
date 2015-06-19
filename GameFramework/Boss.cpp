@@ -18,7 +18,7 @@ Boss::Boss()
 	mBossAnimationState->setEnabled(true);
 	
 	mAlive=true;
-	mBossHP = 250;
+	mBossHP = 200;
 	
 	mAnimationTimer = 0;
 	mBossState = bossSpawn;
@@ -62,6 +62,15 @@ void Boss::update(Ogre::Real timeSinceLastFrame)
 		mBossAnimationState->setEnabled(true);
 	}
 
+	if(mBossState == bossDie)
+	{
+		mBossAnimationState->setEnabled(false);
+		mBossAnimationState->setLoop(false);
+		mBossAnimationState = mBossEntity->getAnimationState("BossDead");
+		mBossAnimationState->setLoop(false);
+		mBossAnimationState->setEnabled(true);
+	}
+
 	mBossAnimationState->addTime(timeSinceLastFrame/1.5);
 }
 //---------------------------------
@@ -73,11 +82,11 @@ bool Boss::collisionCheck(Vector3 bulletVector)//Bullet* bullet[])
 		(mBossSceneNode->getPosition().z < bulletVector.z &&	bulletVector.z < mBossSceneNode->getPosition().z+50)*/
 		(-450.f < bulletVector.x &&	bulletVector.x < 450.f) &&
 		(650.f < bulletVector.y &&	bulletVector.y < 1600.f)&&
-		(-3525.f < bulletVector.z &&	bulletVector.z < -3500.f)
+		(-3600.f < bulletVector.z &&	bulletVector.z < -3500.f)
 		||
 		(-150.f < bulletVector.x &&	bulletVector.x < 150.f) &&
 		(1600.f < bulletVector.y &&	bulletVector.y < 2300.f)&&
-		(-3520.f < bulletVector.z &&	bulletVector.z < -3500.f)
+		(-3600.f < bulletVector.z &&	bulletVector.z < -3500.f)
 		)
 	{
 			cout << "보스 충돌 발생!" << endl;
@@ -105,9 +114,10 @@ void Boss::getHurt(int damage)
 {
 	mBossHP -= damage;
 	
-	if(mBossHP < 0)
+	if(mBossHP <= 0)
 	{
 		mAlive = false;
+		mBossState = bossDie;
 	}
 	
 }
