@@ -92,7 +92,7 @@ private:
 	//float mPlayerX, mPlayerY, mPlayerZ;
 
 	//0605
-	float mPlayerVelocityX, mPlayerVelocityY, mPlayerVelocityZ;
+	float mPlayerVelocityX, mPlayerVelocityY, mPlayerVelocityZ, mItemPlayerVelocity;
 
 	OIS::Keyboard* mKeyboard;
 

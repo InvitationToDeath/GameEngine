@@ -82,11 +82,11 @@ bool Boss::collisionCheck(Vector3 bulletVector)//Bullet* bullet[])
 		(mBossSceneNode->getPosition().z < bulletVector.z &&	bulletVector.z < mBossSceneNode->getPosition().z+50)*/
 		(-450.f < bulletVector.x &&	bulletVector.x < 450.f) &&
 		(650.f < bulletVector.y &&	bulletVector.y < 1600.f)&&
-		(-3600.f < bulletVector.z &&	bulletVector.z < -3500.f)
+		(-3700.f < bulletVector.z &&	bulletVector.z < -3500.f)
 		||
 		(-150.f < bulletVector.x &&	bulletVector.x < 150.f) &&
 		(1600.f < bulletVector.y &&	bulletVector.y < 2300.f)&&
-		(-3600.f < bulletVector.z &&	bulletVector.z < -3500.f)
+		(-3700.f < bulletVector.z &&	bulletVector.z < -3500.f)
 		)
 	{
 			cout << "보스 충돌 발생!" << endl;

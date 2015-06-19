@@ -152,7 +152,7 @@ void Player::runOut(Ogre::Real time,Ogre::Camera* camera){
 
 }
 ////-------------------------------------------
-//Bullet** Player::getBullet()
-//{
-//	return mBullet;
-//}
+void Player::setMissilePower(int power)
+{
+	mPlayerMissilePower = power;
+}

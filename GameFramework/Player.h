@@ -22,7 +22,7 @@ public:
 	void fireBullet(Vector3 direction,Quaternion position);
 	void playerDie();
 	void bulletUpdate(Ogre::Real time);
-	int getMissilePower(){return mPlayerMissilePower;};
+	int getMissilePower(){return mPlayerMissilePower;}; void setMissilePower(int power);
 	/*Bullet** getBullet();*/
 	Bullet* mBullet[50];
 	int mBulletNumber;

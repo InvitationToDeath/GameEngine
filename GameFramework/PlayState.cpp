@@ -27,6 +27,7 @@ void PlayState::enter(void)
 	mDemonNumber=0;
 
 	isBossSpawn = false;
+	mItemPlayerVelocity = 0;
 
 	//0607
 	mCameraWheelValue = 0;
@@ -90,82 +91,15 @@ void PlayState::enter(void)
 
 	mTerrain[7] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-950.f, 0.0f, 0.0f), "ItemBox1", "WoodenBox.mesh");
 	mTerrain[8] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(950.f, 0.0f, 0.0f), "ItemBox2", "TresureBox.mesh");
-	mTerrain[9] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 0.0f, -950.0f), "ItemBox3", "WoodenBox.mesh");
+	mTerrain[9] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 0.0f, 950.0f), "ItemBox4", "TresureBox.mesh");
 	mTerrain[9]->getTerrainSceneNode()->yaw(Degree(90));
-	mTerrain[10] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 0.0f, 950.0f), "ItemBox4", "TresureBox.mesh");
-	mTerrain[10]->getTerrainSceneNode()->yaw(Degree(90));
-
-	/*mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-150.f, 1600.0f, -2800.f), "Bullet1z", "Skull.mesh");
-	mTerrain[7] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(150.f, 2300.0f, -2800.f), "Bullet1zx", "Skull.mesh");*/
-
-	//mTerrain[7] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 0.0f, 0.f), "skulltest", "Skull.mesh");
-	//mTerrain[7]->getTerrainSceneNode()->setScale(5,5,5);
-
-	/*entity[3] = mSceneMgr->createEntity("crossrail", "crossrail.mesh");
-	SceneNode* crossrail = mSceneMgr->getRootSceneNode()->createChildSceneNode("Crossrail", Vector3(-113.0f, 373.0f, 0.0f));
-	crossrail->attachObject(entity[3]);
-	crossrail->setScale(0.5, 0.5, 0.5);
-
-	entity[6] = mSceneMgr->createEntity("bullet", "bullet.mesh");
-	SceneNode* bullet = mSceneMgr->getRootSceneNode()->createChildSceneNode("bullet", Vector3(100, 0.0f, 0));
-	bullet->attachObject(entity[6]);
-
-	entity[7] = mSceneMgr->createEntity("bricks", "bricks.mesh");
-	SceneNode* bricks = mSceneMgr->getRootSceneNode()->createChildSceneNode("bricks", Vector3(0.f, -100.0f, 0.f));
-	bricks->attachObject(entity[7]);
-
-	entity[8] = mSceneMgr->createEntity("floor", "floor.mesh");
-	SceneNode* floor = mSceneMgr->getRootSceneNode()->createChildSceneNode("floor", Vector3(0.f, -100.0f, 0.f));
-	floor->attachObject(entity[8]);
-
-	entity[9] = mSceneMgr->createEntity("Gate", "Gate.mesh");
-	SceneNode* Gate = mSceneMgr->getRootSceneNode()->createChildSceneNode("Gate", Vector3(0.f, -100.0f, 0.f));
-	Gate->attachObject(entity[9]);
-
-	entity[10] = mSceneMgr->createEntity("Towers", "Towers.mesh");
-	SceneNode* Towers = mSceneMgr->getRootSceneNode()->createChildSceneNode("Towers", Vector3(0.f, -100.0f, 0.f));
-	Towers->attachObject(entity[10]);*/
-
-
-
-	////총알 생성
-	//for (int i = 0; i<50; ++i){
-	//	sprintf(bName, "Bullet%d", i);
-	//	bEntity[i] = mSceneMgr->createEntity(bName, "IronBall.mesh");
-	//	Bullet[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(bName, Vector3(Vector3::ZERO));
-	//	Bullet[i]->attachObject(bEntity[i]);
-	//	/*	Demon[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(bName,Vector3(Vector3::ZERO));
-	//	Demon[i]->attachObject(bEntity[i]);
-	//	Demon[i]->setPosition(0,0,100);
-	//	Demon[i]->setPosition(rand()%3000-1500, rand()%2000, -(rand()%5000+1000));*/
-	//}
-	////비활성화
-	//for (int i = 0; i < 50; i++)
-	//{
-	//	goBullet[i] = false;
-	//}
-
+	
 
 	dest = Vector3::ZERO;
 	demonVelocity = 150.0f;
 	bulletNumber = 0;
 	speed = 500;
-
-	// 카메라 시작 위치 조정
-	//mCameraPositionX = 0.f;
-	//mCameraPositionY = 200.f;
-	//mCameraPositionZ = 0.f;
-	//mCamera->setPosition(mCameraPositionX, mCameraPositionY, mCameraPositionZ);
-
-	/*
-	mPlayerX=0;
-	mPlayerY=30;
-	mPlayerZ=0;*/
-
-
-
-	//Vector3 dest(Vector3::ZERO);
-
+	
 
 }
 
@@ -194,16 +128,28 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	mPlayer->getPlayerSceneNode()->translate(mPlayerVelocityX * evt.timeSinceLastFrame, mPlayerVelocityY * evt.timeSinceLastFrame, mPlayerVelocityZ * evt.timeSinceLastFrame);
 	mCamera->setPosition(mPlayer->getPlayerPosition().x, mPlayer->getPlayerPosition().y + 200, mPlayer->getPlayerPosition().z + 50 + mCameraWheelValue);
 
-	////총알 발사
-	//for (int i = 0; i < 50; i++)
-	//{
-	//	if (goBullet[i] == true){
-	//		//mBulletDirection.z=-mBulletDirection.z;
+	if(mPlayer->getPlayerSceneNode()->getPosition().x < mTerrain[7]->getTerrainSceneNode()->getPosition().x + 50.0f)
+	{
+		mTerrain[7]->getTerrainSceneNode()->translate(0.0f,-500.0f,0.0f);
+		mItemPlayerVelocity = 150.0f;
+	}
+	if(mTerrain[8]->getTerrainSceneNode()->getPosition().x - 50.0f < mPlayer->getPlayerSceneNode()->getPosition().x)
+	{
+		mTerrain[8]->getTerrainSceneNode()->translate(0.0f,-500.0f,0.0f);
+		mPlayer->setMissilePower(20);
+	}
+	if(mTerrain[9]->getTerrainSceneNode()->getPosition().z - 50.0f < mPlayer->getPlayerSceneNode()->getPosition().z
+		&&
+		mTerrain[9]->getTerrainSceneNode()->getPosition().y == mPlayer->getPlayerSceneNode()->getPosition().y)
+	{
+		mTerrain[9]->getTerrainSceneNode()->translate(0.0f,-500.0f,0.0f);
+		mPlayer->setHP(100);
+	}
 
-	//		Bullet[i]->translate(mBulletDirection[i].normalisedCopy() * 1000 * evt.timeSinceLastFrame, Node::TransformSpace::TS_LOCAL);
-	//		//Bullet[i]->translate(0,0,-speed*evt.timeSinceLastFrame);
-	//	}
-	//}
+
+
+
+
 
 	mPlayer->bulletUpdate(evt.timeSinceLastFrame);
 
@@ -291,12 +237,12 @@ bool PlayState::frameEnded(GameManager* game, const FrameEvent& evt)
 	static Ogre::DisplayString currFps = L"현재 FPS: ";
 	static Ogre::DisplayString avgFps = L"현재 점수: ";
 	static Ogre::DisplayString bestFps = L"BOSS HP: ";
-	//static Ogre::DisplayString worstFps = L"최저 FPS: ";
+	static Ogre::DisplayString worstFps = L"포탄 파워: ";
 
 	OverlayElement* guiAvg = OverlayManager::getSingleton().getOverlayElement("AverageFps");
 	OverlayElement* guiCurr = OverlayManager::getSingleton().getOverlayElement("CurrFps");
 	OverlayElement* guiBest = OverlayManager::getSingleton().getOverlayElement("BestFps");
-	//OverlayElement* guiWorst = OverlayManager::getSingleton().getOverlayElement("WorstFps");
+	OverlayElement* guiWorst = OverlayManager::getSingleton().getOverlayElement("WorstFps");
 
 	const RenderTarget::FrameStats& stats = mRoot->getAutoCreatedWindow()->getStatistics();
 
@@ -304,7 +250,7 @@ bool PlayState::frameEnded(GameManager* game, const FrameEvent& evt)
 	guiAvg->setCaption(avgFps + StringConverter::toString(mPlayer->getHP()));
 	if(isBossSpawn)
 		guiBest->setCaption(bestFps + StringConverter::toString(mBoss->getBossHP()));
-	//guiWorst->setCaption(worstFps + StringConverter::toString(stats.worstFPS)); 
+	guiWorst->setCaption(worstFps + StringConverter::toString(mPlayer->getMissilePower())); 
 	//추가
 
 	//mKeyboard->capture()
@@ -360,7 +306,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 		//mCameraPositionX -= 3.0f;
 		mPlayerDirection = LEFT;
 		if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
-			mPlayerVelocityX = -150.0f;
+			mPlayerVelocityX = -150.0f - mItemPlayerVelocity;
 		break;
 
 	case OIS::KC_D:
@@ -368,7 +314,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 		//mPlayerX = mCameraPositionX += 3.0f;
 		mPlayerDirection = RIGHT;
 		if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
-			mPlayerVelocityX = 150.0f;
+			mPlayerVelocityX = 150.0f + mItemPlayerVelocity;
 		break;
 
 	case OIS::KC_W:
@@ -376,7 +322,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 		//mPlayerZ = mCameraPositionZ -= 3.0f;
 		mPlayerDirection = UP;
 		if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
-			mPlayerVelocityZ = -150.0f;
+			mPlayerVelocityZ = -150.0f - mItemPlayerVelocity;
 		break;
 
 	case OIS::KC_S:
@@ -384,7 +330,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 		//mPlayerZ = mCameraPositionZ += 3.0f;
 		mPlayerDirection = DOWN;
 		if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
-			mPlayerVelocityZ = 150.0f;
+			mPlayerVelocityZ = 150.0f + mItemPlayerVelocity;
 		break;
 
 	case OIS::KC_1:
