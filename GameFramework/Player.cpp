@@ -140,7 +140,11 @@ void Player::runOut(Ogre::Real time,Ogre::Camera* camera){
 		if(mSinAngle>=0)
 			mSinAngle-=1;
 		else
+		{
 			mRunout=false;
+			mPlayerBodySceneNode->setPosition(mPlayerBodySceneNode->getPosition().x, 0, mPlayerBodySceneNode->getPosition().z);
+			//mPlayerHeadSceneNode->setPosition(mPlayerHeadSceneNode->getPosition().x, 0, mPlayerHeadSceneNode->getPosition().z);
+		}
 	}
 
 }

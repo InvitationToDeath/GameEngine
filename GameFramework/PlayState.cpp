@@ -34,6 +34,9 @@ void PlayState::enter(void)
 	mBoss = new Boss;
 	mSkull = new Skull;
 
+	for(int i = 0; i < mPlayer->mBulletNumber; ++i)
+		mPlayer->mBullet[i]->setAlive(false);
+
 	//mTerrain = new Terrain;
 	//mTerrain = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0,100,0), "floor1", "floor.mesh");
 	//mTerrain->createTerrain(mSceneMgr->getRootSceneNode(), Vector3(0,100,0), "floor1", "floor.mesh");
@@ -286,7 +289,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 
 		//mCameraPositionX -= 3.0f;
 		mPlayerDirection = LEFT;
-		if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
+		//if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
 			mPlayerVelocityX = -150.0f;
 		break;
 
@@ -294,7 +297,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 
 		//mPlayerX = mCameraPositionX += 3.0f;
 		mPlayerDirection = RIGHT;
-		if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
+		//if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
 			mPlayerVelocityX = 150.0f;
 		break;
 
@@ -302,7 +305,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 
 		//mPlayerZ = mCameraPositionZ -= 3.0f;
 		mPlayerDirection = UP;
-		if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
+		//if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
 			mPlayerVelocityZ = -150.0f;
 		break;
 
@@ -310,7 +313,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 
 		//mPlayerZ = mCameraPositionZ += 3.0f;
 		mPlayerDirection = DOWN;
-		if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
+		//if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
 			mPlayerVelocityZ = 150.0f;
 		break;
 

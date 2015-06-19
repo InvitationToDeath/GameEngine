@@ -48,3 +48,8 @@ void Bullet::setBulletQuternion(Quaternion direction){
 	mBulletSceneNode->setOrientation(direction);
 
 }
+
+void Bullet::setAlive(bool isAlive)
+{
+	mAlive = isAlive;
+}
