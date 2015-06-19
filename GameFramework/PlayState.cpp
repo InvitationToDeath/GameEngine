@@ -198,7 +198,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	mDemon->update(evt.timeSinceLastFrame);
 
 
-	if(100 <= mPlayer->getHP() && isBossSpawn == false)
+	if(10 <= mPlayer->getHP() && isBossSpawn == false)
 	{
 		mBoss = new Boss;
 		isBossSpawn = true;
@@ -519,7 +519,7 @@ void PlayState::_drawGridPlane(void)
 
 void PlayState::_createParticleSystem(void)
 {
-<<<<<<< HEAD
+
 	// fill here
 	mSunNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Sun",Ogre::Vector3(0,500,0));
 	//mJetEngineNode = mSceneMgr->getSceneNode("ProfessorRoot")->createChildSceneNode("JetEngine");
@@ -527,7 +527,7 @@ void PlayState::_createParticleSystem(void)
 	mSunNode->attachObject(pSys);
 	//pSys = mSceneMgr->createParticleSystem("JetEngineParticle", "Particle/JetEngine");
 	//mJetEngineNode->attachObject(pSys);
-=======
+
 	//pSys = mSceneMgr->createParticleSystem("SunSystem", "Particle/Smoke");
 	for (int i = 0; i < 50; i++)
 	{
@@ -537,5 +537,5 @@ void PlayState::_createParticleSystem(void)
 		mfireNode[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(mFireName,Ogre::Vector3(i*80-2000,0,-2000));
 		mfireNode[i]->attachObject(pSys);
 	}
->>>>>>> origin/master
+
 }

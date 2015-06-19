@@ -130,7 +130,7 @@ void Player::bulletUpdate(Ogre::Real time){
 void Player::runOutStart(){
 	mSinAngle=90;
 	mRunout=true;
-	mRunoutDegree=3000;
+	mRunoutDegree=800;
 
 }
 ////-------------------------------------------

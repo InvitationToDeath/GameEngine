@@ -7,6 +7,8 @@
 
 using namespace Ogre;
 
+enum bossState{bossIdle, bossSpawn, bossAttack, bossDie};
+
 class Boss 
 {
 public:
@@ -38,10 +40,12 @@ private:
 	float sinAngle;
 	float moveAngle;
 	bool mAlive;
+	bossState mBossState;
 
 	int mBossHP;
 	
 	float time;
 	Vector3 mAxis;
 	int randomNumber;
+	float mAnimationTimer;
 };

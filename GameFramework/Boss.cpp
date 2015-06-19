@@ -19,6 +19,9 @@ Boss::Boss()
 	
 	mAlive=true;
 	mBossHP = 250;
+	
+	mAnimationTimer = 0;
+	mBossState = bossSpawn;
 }
 //---------------------------------
 Boss::~Boss()
@@ -28,6 +31,37 @@ Boss::~Boss()
 //---------------------------------
 void Boss::update(Ogre::Real timeSinceLastFrame)
 {
+	if(mBossState == bossSpawn)
+	{
+		if(mAnimationTimer < mBossEntity->getAnimationState("BossSpawn")->getLength())
+		{
+			mAnimationTimer += timeSinceLastFrame/1.5;
+			//mDemonAnimationState->addTime(timeSinceLastFrame);
+		}
+		if(mBossEntity->getAnimationState("BossSpawn")->getLength() <= mAnimationTimer )
+		{
+			/*mBossAnimationState->setEnabled(false);
+			mBossAnimationState->setLoop(false);
+			mBossAnimationState = mBossEntity->getAnimationState("BossIdle");
+			mBossAnimationState->setLoop(true);
+			mBossAnimationState->setEnabled(true);*/
+
+			mBossState = bossIdle;
+			mAnimationTimer = 0;
+		}
+
+
+		//mAnimationTimer += timeSinceLastFrame/1.5;
+	}
+	if(mBossState == bossIdle)
+	{
+		mBossAnimationState->setEnabled(false);
+		mBossAnimationState->setLoop(false);
+		mBossAnimationState = mBossEntity->getAnimationState("BossIdle");
+		mBossAnimationState->setLoop(true);
+		mBossAnimationState->setEnabled(true);
+	}
+
 	mBossAnimationState->addTime(timeSinceLastFrame/1.5);
 }
 //---------------------------------
@@ -71,7 +105,10 @@ void Boss::getHurt(int damage)
 {
 	mBossHP -= damage;
 	
-	//if(mBossHP < 0) //사망 로직 추가 전.
+	if(mBossHP < 0)
+	{
+		mAlive = false;
+	}
 	
 }
 

@@ -80,7 +80,7 @@ void Demon::update(Ogre::Real timeSinceLastFrame)
 		mDemonAnimationState->setLoop(false);
 		mDemonAnimationState->setEnabled(true);
 
-		cout << mAnimationTimer << endl;
+		//cout << mAnimationTimer << endl;
 
 		if(mAnimationTimer < mDemonEntity->getAnimationState("DemonDameged")->getLength())
 		{
