@@ -495,12 +495,14 @@ void PlayState::_drawGridPlane(void)
 
 
 void PlayState::_createParticleSystem(void)
+{
+	//pSys = mSceneMgr->createParticleSystem("SunSystem", "Particle/Smoke");
+	for (int i = 0; i < 50; i++)
 	{
-		// fill here
-		mSunNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Sun",Ogre::Vector3(0,500,0));
-		//mJetEngineNode = mSceneMgr->getSceneNode("ProfessorRoot")->createChildSceneNode("JetEngine");
-		pSys = mSceneMgr->createParticleSystem("SunSystem", "Particle/Smoke");
-		mSunNode->attachObject(pSys);
-		//pSys = mSceneMgr->createParticleSystem("JetEngineParticle", "Particle/JetEngine");
-		//mJetEngineNode->attachObject(pSys);
+		sprintf(mParticleName, "particle%d", i);
+		pSys = mSceneMgr->createParticleSystem(mParticleName, "Particle/Smoke");
+		sprintf(mFireName, "fire%d", i);
+		mfireNode[i] = mSceneMgr->getRootSceneNode()->createChildSceneNode(mFireName,Ogre::Vector3(i*80-2000,0,-2000));
+		mfireNode[i]->attachObject(pSys);
 	}
+}

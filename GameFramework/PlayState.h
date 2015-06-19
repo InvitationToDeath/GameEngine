@@ -132,6 +132,12 @@ private:
 	//paticle system
 	ParticleSystem* pSys;
 	Ogre::SceneNode* mSunNode;
+	char mParticleName[15];
+
+	// fire 
+	char mFireName[15];
+	SceneNode* mfireNode[50];
+
 };
 
 
