@@ -26,6 +26,7 @@ public:
 	bool getAlive(); void setAlive(bool isAlive);
 	void setHP(int damage);
 	void setDemonState(demonState state); demonState getDemonState();
+	AnimationState* getDemonAnimationState();
 
 protected:
 

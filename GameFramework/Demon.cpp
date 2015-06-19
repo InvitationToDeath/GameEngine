@@ -53,8 +53,8 @@ void Demon::update(Ogre::Real timeSinceLastFrame)
 
 		if(mDistance>=200){
 
-			mDemonNode->translate( mDirection * move *  sin((sinAngle *(PI / 180))) * (timeSinceLastFrame*3));
-			mDemonNode->translate( mAxis * move *  sin((sinAngle *(PI / 180))) * (timeSinceLastFrame*3));
+			mDemonNode->translate( mDirection * move *  sin((sinAngle *(PI / 180))) * (timeSinceLastFrame*5));
+			mDemonNode->translate( mAxis * move *  sin((sinAngle *(PI / 180))) * (timeSinceLastFrame*5));
 
 			if(moveAngle>0)
 				moveAngle-=1;
@@ -136,6 +136,9 @@ void Demon::trace(SceneNode* destNode)
 	mDemonNode->setOrientation(quat);
 
 	if(mDistance<=200){
+
+		mDemonState = attack;
+
 		mDemonAnimationState->setEnabled(false);
 		mDemonAnimationState->setLoop(false);
 		//quat = Vector3(Vector3::UNIT_Z).getRotationTo(destNode->getPosition());
@@ -143,6 +146,15 @@ void Demon::trace(SceneNode* destNode)
 		mDemonAnimationState->setLoop(true);
 		mDemonAnimationState->setEnabled(true);
 
+	}
+	else
+	{
+		mDemonState = idle;
+		mDemonAnimationState->setEnabled(false);
+		mDemonAnimationState->setLoop(false);
+		mDemonAnimationState = mDemonEntity->getAnimationState("DemonIdle");
+		mDemonAnimationState->setLoop(true);
+		mDemonAnimationState->setEnabled(true);
 	}
 }
 
@@ -175,4 +187,9 @@ void Demon::setDemonState(demonState state)
 demonState Demon::getDemonState()
 {
 	return mDemonState;
+}
+
+AnimationState* Demon::getDemonAnimationState()
+{
+	return mDemonAnimationState;
 }

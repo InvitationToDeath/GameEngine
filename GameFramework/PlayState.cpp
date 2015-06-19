@@ -4,6 +4,7 @@
 #include "Boss.h"
 
 #include <vector>
+#include <chrono>
 
 
 
@@ -224,6 +225,15 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 					mBoss->getHurt(mPlayer->getMissilePower());
 				}
 			}
+		}
+	}
+
+	//데몬 + 보스 공격에 데미지 입는 코드.
+	for (int i = 0; i < DEMONNUMBER; ++i)
+	{
+		if(mDemon[i]->getDemonState() == attack) //공격 중이면
+		{
+			mPlayer->setHP(-0.1);
 		}
 	}
 

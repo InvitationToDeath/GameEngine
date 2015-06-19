@@ -41,13 +41,13 @@ void Player::createPlayer()
 }
 
 //-------------------------------------------
-void Player::setHP(int hp)
+void Player::setHP(float hp)
 {
 	mPlayerHP += hp;
 }
 
 //-------------------------------------------
-int Player::getHP()
+float Player::getHP()
 {
 	return mPlayerHP;
 }

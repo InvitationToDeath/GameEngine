@@ -15,7 +15,7 @@ public:
 	~Player();
 
 	void createPlayer();
-	void setHP(int hp); int getHP();
+	void setHP(float hp); float getHP();
 	void setPlayerPosition(float x, float y, float z); Vector3 getPlayerPosition();
 	void playerHeadYaw(float yawValue); void playerHeadPitch(float pitchValue);
 	SceneNode* getPlayerSceneNode();
@@ -34,7 +34,7 @@ public:
 protected:
 
 private:
-	int mPlayerHP, mMaxPlayerHP;
+	float mPlayerHP, mMaxPlayerHP;
 	int mPlayerVelocity;
 	int mPlayerMissilePower;
 	Vector3 mPlayerPosition;
