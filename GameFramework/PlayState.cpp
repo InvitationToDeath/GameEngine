@@ -65,16 +65,23 @@ void PlayState::enter(void)
 
 	//플레이어, 지형 (클래스 생성자로 모두 변경)
 
-	mTerrain[0] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-230.0f, 730.0f, 0.0f), "crossrail", "crossrail.mesh");
-	//mTerrain[0]->getTerrainSceneNode()->setScale(0.5,0.5,0.5);
+	mTerrain[0] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-450.0f, 730.0f, 0.0f), "crossrail", "crossrail.mesh");
+	mTerrain[0]->getTerrainSceneNode()->setScale(2.0f,1.0f,2.0f);
+	
 	mTerrain[1] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(100, 0.0f, 0), "bullet", "Bullet.mesh");
 	mTerrain[2] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "bricks", "bricks.mesh");
+	//mTerrain[2]->getTerrainSceneNode()->yaw(Degree(180));
 	mTerrain[3] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "floor", "floor.mesh");
 	mTerrain[4] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Gate", "Gate.mesh");
+	//mTerrain[4]->getTerrainSceneNode()->yaw(Degree(180));
 	mTerrain[5] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, -100.0f, 0.f), "Towers", "Towers.mesh");
 
-	mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-150.f, 1600.0f, -2800.f), "Bullet1z", "Skull.mesh");
-	mTerrain[7] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(150.f, 2300.0f, -2800.f), "Bullet1zx", "Skull.mesh");
+	mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 0.0f, 0.0f), "SkyBox", "skybox2.mesh");
+	mTerrain[6]->getTerrainSceneNode()->setScale(100.f,100.f,100.f);
+
+
+	/*mTerrain[6] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(-150.f, 1600.0f, -2800.f), "Bullet1z", "Skull.mesh");
+	mTerrain[7] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(150.f, 2300.0f, -2800.f), "Bullet1zx", "Skull.mesh");*/
 
 	//mTerrain[7] = new Terrain(mSceneMgr->getRootSceneNode(), Vector3(0.f, 0.0f, 0.f), "skulltest", "Skull.mesh");
 	//mTerrain[7]->getTerrainSceneNode()->setScale(5,5,5);
@@ -190,7 +197,7 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 
 	mSkull->update(evt.timeSinceLastFrame);
 	mSkull->trace(mPlayer->getPlayerSceneNode());
-	
+
 
 	mSkull->update(evt.timeSinceLastFrame);
 	mSkull->trace(mPlayer->getPlayerSceneNode());
@@ -202,16 +209,30 @@ bool PlayState::frameStarted(GameManager* game, const FrameEvent& evt)
 	//충돌체크
 	for(int i = 0; i < mPlayer->mBulletNumber; ++i)
 	{
-		if(mDemon->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))//만약 충동하면 총알 없애도록.
-			mPlayer->mBullet[i];
-		if(mSkull->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))
-			mPlayer->mBullet[i];
-		if(mBoss->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))
-			mPlayer->mBullet[i];
+		if(mPlayer->mBullet[i]->getAlive() == true) //이미 충돌된 총알이 아닐 때만 충돌 체크
+		{
+			if(mDemon->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))//만약 충돌하면 총알의 isAlive false처리.
+			{
+				mPlayer->mBullet[i];
+				mPlayer->mBullet[i]->setAlive(false);
+
+				//충돌 애니메이션 실행
+				//mDemon->getHurt(evt.timeSinceLastFrame);
+				mDemon->setDemonState(hurt);
+			}
+			if(mSkull->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))
+			{
+				mPlayer->mBullet[i];
+				mPlayer->mBullet[i]->setAlive(false);
+			}
+			if(true == mBoss->getAlive() && mBoss->collisionCheck(mPlayer->mBullet[i]->mBulletPosition))
+			{
+				mPlayer->mBullet[i];
+				mPlayer->mBullet[i]->setAlive(false);
+			}
+		}
 	}
-	////해골 충돌체크
-	//for(int i = 0; i < mPlayer->mBulletNumber; ++i)
-	//	mSkull->collisionCheck(mPlayer->mBullet[i]->mBulletPosition);
+
 
 
 	return true;
@@ -289,7 +310,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 
 		//mCameraPositionX -= 3.0f;
 		mPlayerDirection = LEFT;
-		//if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
+		if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
 			mPlayerVelocityX = -150.0f;
 		break;
 
@@ -297,7 +318,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 
 		//mPlayerX = mCameraPositionX += 3.0f;
 		mPlayerDirection = RIGHT;
-		//if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
+		if(-45.0f < mPlayer->getPlayerPosition().z && mPlayer->getPlayerPosition().z < 45.0f)
 			mPlayerVelocityX = 150.0f;
 		break;
 
@@ -305,7 +326,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 
 		//mPlayerZ = mCameraPositionZ -= 3.0f;
 		mPlayerDirection = UP;
-		//if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
+		if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
 			mPlayerVelocityZ = -150.0f;
 		break;
 
@@ -313,7 +334,7 @@ bool PlayState::keyPressed(GameManager* game, const OIS::KeyEvent &e)
 
 		//mPlayerZ = mCameraPositionZ += 3.0f;
 		mPlayerDirection = DOWN;
-		//if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
+		if(-45.0f < mPlayer->getPlayerPosition().x && mPlayer->getPlayerPosition().x < 45.0f)
 			mPlayerVelocityZ = 150.0f;
 		break;
 

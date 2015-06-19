@@ -13,9 +13,11 @@ Boss::Boss()
 	mBossSceneNode->attachObject(mBossEntity);
 	mBossSceneNode->scale(0.3f,0.3f,0.3f);
 
-	mBossAnimationState = mBossEntity->getAnimationState("BossSpawn");
+	mBossAnimationState = mBossEntity->getAnimationState("BossIdle");
 	mBossAnimationState->setLoop(true);
 	mBossAnimationState->setEnabled(true);
+	
+	mAlive=true;
 }
 //---------------------------------
 Boss::~Boss()
@@ -25,7 +27,7 @@ Boss::~Boss()
 //---------------------------------
 void Boss::update(Ogre::Real timeSinceLastFrame)
 {
-	mBossAnimationState->addTime(timeSinceLastFrame);
+	mBossAnimationState->addTime(timeSinceLastFrame/1.5);
 }
 //---------------------------------
 bool Boss::collisionCheck(Vector3 bulletVector)//Bullet* bullet[])
@@ -52,4 +54,14 @@ bool Boss::collisionCheck(Vector3 bulletVector)//Bullet* bullet[])
 //---------------------------------
 void Boss::setPosition(Vector3 position){
 	mBossSceneNode->setPosition(position);	
+}
+
+bool Boss::getAlive()
+{
+	return mAlive;
+}
+
+void Boss::setAlive(bool isAlive)
+{
+	mAlive = isAlive;
 }

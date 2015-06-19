@@ -25,6 +25,7 @@ Skull::Skull()
 	time=0;
 	randomNumber=rand()%4;
 	
+	mAlive=true;
 }
 
 void Skull::update(Ogre::Real timeSinceLastFrame)
@@ -44,7 +45,7 @@ void Skull::update(Ogre::Real timeSinceLastFrame)
 	
 	move = SkullVelocity * timeSinceLastFrame;
 
-	if(mDistance>=60){
+	if(mDistance>=200){
 		mSkullNode->translate( mDirection * move *  sin((sinAngle *(PI / 180))));
 		mSkullNode->translate( mAxis * move *  sin((sinAngle *(PI / 180))));
 
@@ -98,3 +99,12 @@ void Skull::trace(SceneNode* destNode)
 	//}
 }
 
+bool Skull::getAlive()
+{
+	return mAlive;
+}
+
+void Skull::setAlive(bool isAlive)
+{
+	mAlive = isAlive;
+}

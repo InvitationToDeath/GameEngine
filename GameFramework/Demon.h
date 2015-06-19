@@ -9,6 +9,8 @@
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console" )
 using namespace Ogre;
 
+enum demonState{idle, hurt, attack, die};
+
 class Demon 
 {
 public:
@@ -20,6 +22,12 @@ public:
 		mDemonNode->setPosition(position);	
 	}
 	void trace(SceneNode* destNode);
+	bool getAlive(); void setAlive(bool isAlive);
+	void getHurt(Ogre::Real timeSinceLastFrame);
+	void setDemonState(demonState state); demonState getDemonState();
+
+protected:
+
 private:
 	Ogre::SceneManager* mSceneMgr;
 	SceneNode* mDemonNode;
@@ -41,10 +49,14 @@ private:
 	float demonVelocity;
 	float sinAngle;
 	float moveAngle;
+	bool mAlive;
 	
 	float time;
+	float mAnimationTimer;
 	Vector3 mAxis;
 	int randomNumber;
+
+	demonState mDemonState;
 };
 
 

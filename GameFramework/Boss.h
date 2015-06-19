@@ -16,6 +16,7 @@ public:
 	bool collisionCheck(Vector3 bulletVector);
 	void setPosition(Vector3 position);
 	//void trace(SceneNode* destNode);
+	bool getAlive(); void setAlive(bool isAlive);
 private:
 	Ogre::SceneManager* mSceneMgr;
 	SceneNode* mBossSceneNode;
@@ -35,6 +36,7 @@ private:
 	float BossVelocity;
 	float sinAngle;
 	float moveAngle;
+	bool mAlive;
 	
 	float time;
 	Vector3 mAxis;

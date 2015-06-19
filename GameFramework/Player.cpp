@@ -83,7 +83,7 @@ SceneNode* Player::getPlayerSceneNode()
 void Player::fireBullet(Vector3 position,Quaternion direction)
 {
 	if(mBulletIsFull!=true)
-		mBullet[mBulletNumber]= new Bullet(mBulletNumber);
+		mBullet[mBulletNumber]= new Bullet(mBulletNumber); mBullet[mBulletNumber]->setAlive(true);
 	std::cout<<"fire1"<<std::endl;
 	
 	mBullet[mBulletNumber]->setBulletPosition(position);

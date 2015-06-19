@@ -49,6 +49,11 @@ void Bullet::setBulletQuternion(Quaternion direction){
 
 }
 
+bool Bullet::getAlive()
+{
+	return mAlive;
+}
+
 void Bullet::setAlive(bool isAlive)
 {
 	mAlive = isAlive;

@@ -20,6 +20,7 @@ public:
 		mSkullNode->setPosition(position);	
 	}
 	void trace(SceneNode* destNode);
+	bool getAlive(); void setAlive(bool isAlive);
 private:
 	Ogre::SceneManager* mSceneMgr;
 	SceneNode* mSkullNode;
@@ -41,6 +42,7 @@ private:
 	float SkullVelocity;
 	float sinAngle;
 	float moveAngle;
+	bool mAlive;
 	
 	float time;
 	Vector3 mAxis;
