@@ -132,8 +132,17 @@ private:
 	//paticle system
 	ParticleSystem* pSys;
 	Ogre::SceneNode* mSunNode;
+<<<<<<< HEAD
 
 	bool isBossSpawn;
+=======
+	char mParticleName[15];
+
+	// fire 
+	char mFireName[15];
+	SceneNode* mfireNode[50];
+
+>>>>>>> origin/master
 };
 
 
